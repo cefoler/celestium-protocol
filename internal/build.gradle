@@ -1,0 +1,48 @@
+plugins {
+    id 'com.google.protobuf' version '0.8.15'
+}
+
+def grpcVersion = '1.37.0'
+def protobufVersion = '3.12.0'
+
+dependencies {
+    implementation "io.grpc:grpc-netty-shaded:${grpcVersion}"
+    implementation "io.grpc:grpc-protobuf:${grpcVersion}"
+    implementation "io.grpc:grpc-stub:${grpcVersion}"
+
+    implementation 'com.google.flogger:flogger:0.6'
+    implementation 'com.google.flogger:flogger-system-backend:0.6'
+
+    compileOnly 'org.apache.tomcat:annotations-api:6.0.53'
+
+    testImplementation "junit:junit:4.12"
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs 'build/generated/source/proto/main/grpc'
+            srcDirs 'build/generated/source/proto/main/java'
+        }
+    }
+}
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:${protobufVersion}"
+    }
+    plugins {
+        grpc {
+            artifact = 'io.grpc:protoc-gen-grpc-java:1.37.0'
+        }
+    }
+    generateProtoTasks {
+        all()*.plugins {
+            grpc {}
+        }
+    }
+}
+
+test {
+    useJUnitPlatform()
+}

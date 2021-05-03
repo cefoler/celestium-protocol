@@ -1,0 +1,39 @@
+allprojects {
+    apply plugin: 'java'
+    apply plugin: 'maven'
+
+    group 'com.celeste'
+    version '1.0-SNAPSHOT'
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    repositories {
+        mavenCentral()
+
+        maven { url 'https://jitpack.io' }
+    }
+
+    dependencies {
+        implementation 'com.google.guava:guava:30.1.1-jre'
+
+        compileOnly 'org.projectlombok:lombok:1.18.20'
+        annotationProcessor 'org.projectlombok:lombok:1.18.20'
+
+        compileOnly 'org.jetbrains:annotations:20.1.0'
+        annotationProcessor 'org.jetbrains:annotations:20.1.0'
+    }
+
+    jar {
+        from 'LICENSE'
+    }
+
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+    }
+
+    tasks.withType(Jar) {
+        destinationDirectory.set(file("$rootDir/target/"))
+    }
+
+}
