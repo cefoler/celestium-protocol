@@ -1,5 +1,6 @@
-package com.celeste.internal.model.protocol.type;
+package com.celeste.internal.model.type;
 
+import java.util.Arrays;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.jetbrains.annotations.Nullable;
@@ -23,12 +24,11 @@ public enum NextState {
      * @return NextState
      */
     @Nullable
-    public static NextState getById(int id) {
-        for (NextState state : values()) {
-            if (state.getId() == id) return state;
-        }
-
-        return null;
+    public static NextState getById(Integer id) {
+        return Arrays.stream(values())
+            .filter(nextState -> nextState.getId() == id)
+            .findFirst()
+            .orElse(null);
     }
 
 }

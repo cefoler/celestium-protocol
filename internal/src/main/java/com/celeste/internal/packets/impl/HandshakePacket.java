@@ -1,8 +1,8 @@
-package com.celeste.internal.model.packets;
+package com.celeste.internal.packets.impl;
 
-import com.celeste.internal.model.Packet;
-import com.celeste.internal.model.messages.HandshakeMessage;
-import com.celeste.internal.model.protocol.type.NextState;
+import com.celeste.internal.model.type.NextState;
+import com.celeste.internal.packets.Packet;
+import com.celeste.internal.packets.messages.HandshakeMessage;
 import com.celeste.internal.protocol.util.ProtocolBuffer;
 import lombok.Getter;
 
@@ -17,12 +17,12 @@ import lombok.Getter;
 public final class HandshakePacket extends Packet<HandshakeMessage> {
 
   public HandshakePacket() {
-    super(0);
+    super(0x00, null);
     System.out.println("RECEIVED HANDSHAKE PACKET");
   }
 
   @Override
-  public Class<HandshakeMessage> getType() {
+  public Class<HandshakeMessage> getMessage() {
     return HandshakeMessage.class;
   }
 

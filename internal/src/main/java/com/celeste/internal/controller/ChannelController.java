@@ -1,15 +1,11 @@
 package com.celeste.internal.controller;
 
-import com.celeste.internal.model.PacketContent;
-import com.celeste.internal.model.PacketHandler;
-import com.celeste.internal.model.protocol.Protocol;
-import com.celeste.internal.model.protocol.type.ConnectionState;
-import com.celeste.internal.registry.ChannelRegistry;
-import com.celeste.internal.registry.ProtocolRegistry;
-import com.celeste.internal.views.handlers.HandshakeHandler;
-import io.grpc.netty.shaded.io.netty.channel.Channel;
+import com.celeste.internal.model.type.ConnectionState;
+import com.celeste.internal.packets.PacketContent;
+import com.celeste.internal.packets.PacketHandler;
+import com.celeste.internal.packets.handlers.HandshakeHandler;
+import com.celeste.internal.registry.Protocol;
 import io.grpc.netty.shaded.io.netty.channel.ChannelHandlerContext;
-import io.grpc.netty.shaded.io.netty.channel.ChannelOption;
 import io.grpc.netty.shaded.io.netty.channel.SimpleChannelInboundHandler;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,6 +15,7 @@ import lombok.Setter;
 public final class ChannelController extends SimpleChannelInboundHandler<PacketContent> {
 
   private ConnectionState state;
+
   private int protocolVersion;
   private long creationTime;
 
@@ -34,7 +31,7 @@ public final class ChannelController extends SimpleChannelInboundHandler<PacketC
   @Override
   protected void channelRead0(final ChannelHandlerContext channelHandlerContext, final PacketContent packetContent) {
     // The handler is changed event after event so it can fit properly to the content
-    handler.readPacket(channelHandlerContext, packetContent);
+    handler.read(channelHandlerContext, packetContent);
   }
 
 }

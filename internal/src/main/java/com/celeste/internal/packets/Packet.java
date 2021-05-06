@@ -1,6 +1,7 @@
-package com.celeste.internal.model;
+package com.celeste.internal.packets;
 
 import com.celeste.internal.protocol.util.ProtocolBuffer;
+import com.celeste.internal.registry.Protocol;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -16,11 +17,12 @@ import lombok.Data;
  */
 @Data
 @AllArgsConstructor
-public abstract class Packet<T extends PacketContent> {
+public abstract class Packet<Message extends PacketContent> {
 
-  private Integer id;
+  private Integer inboundId;
+  private Integer outboundId;
 
-  public abstract Class<T> getType();
+  public abstract Class<Message> getMessage();
 
   /**
    * Reads the received packet bytes sent through
@@ -34,7 +36,7 @@ public abstract class Packet<T extends PacketContent> {
    *
    * @param buffer ProtocolBuffer
    */
-  public abstract T read(final ProtocolBuffer buffer);
+  public abstract Message read(final ProtocolBuffer buffer);
 
   /**
    * Writes the response through the ByteBuf
@@ -46,6 +48,6 @@ public abstract class Packet<T extends PacketContent> {
    *
    * @param buffer ProtocolBuffer
    */
-  public abstract void write(final ProtocolBuffer buffer, T packet);
+  public abstract void write(final ProtocolBuffer buffer, Message packet);
 
 }

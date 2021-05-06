@@ -1,27 +1,27 @@
 package com.celeste.internal.protocol;
 
-import com.celeste.internal.model.protocol.ServerAddress;
-import com.google.common.flogger.FluentLogger;
+import static com.celeste.internal.util.Logging.LOGGER;
+
+import com.celeste.internal.model.ServerAddress;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import io.grpc.netty.shaded.io.netty.bootstrap.ServerBootstrap;
 import io.grpc.netty.shaded.io.netty.channel.ChannelFuture;
-import io.grpc.netty.shaded.io.netty.channel.ChannelOption;
 import io.grpc.netty.shaded.io.netty.channel.EventLoopGroup;
 import io.grpc.netty.shaded.io.netty.channel.epoll.EpollEventLoopGroup;
 import io.grpc.netty.shaded.io.netty.channel.epoll.EpollServerSocketChannel;
+import java.time.Duration;
+import java.time.Instant;
 import lombok.Getter;
 import lombok.SneakyThrows;
 
 @Getter
 public final class ServerBootstrapper {
 
-  private static final FluentLogger LOGGER = FluentLogger.forEnclosingClass();
-
   private ServerBootstrap server;
   private long startTime;
 
   @SneakyThrows
-  public void init(final ServerAddress address) {
+  public void init(final ServerAddress serverAddress) {
     this.startTime = System.currentTimeMillis();
 
     final EventLoopGroup bossGroup = new EpollEventLoopGroup(0, new ThreadFactoryBuilder()
@@ -41,16 +41,18 @@ public final class ServerBootstrapper {
     try {
       this.server = new ServerBootstrap()
           .channel(EpollServerSocketChannel.class)
-          .localAddress(address.getHost(), address.getPort())
+          .localAddress(serverAddress.getAddress(), serverAddress.getPort())
           .group(bossGroup, workerGroup)
-          .option(ChannelOption.TCP_NODELAY, true)
-          .option(ChannelOption.SO_KEEPALIVE, true)
           .childHandler(new NetworkInitializer());
 
-      final ChannelFuture channelFuture = server.bind(address.getHost(), address.getPort()).sync();
-      LOGGER.atInfo().log("Server listening at %s:%s", address.getHost(), address.getPort());
+      final ChannelFuture channelFuture = server.bind(serverAddress.getAddress(), serverAddress.getPort()).sync();
+
+      LOGGER.atInfo().log("Server listening at %s:%s", serverAddress.getAddress(), serverAddress.getPort());
+      LOGGER.atInfo().log("Duration of start: %s", Duration.between(Instant.ofEpochMilli(startTime), Instant.now()).toMillis());
 
       channelFuture.channel().closeFuture().sync();
+    } catch (Exception exception) {
+      LOGGER.atSevere().log("Server could not bind to the address, %s:%s", serverAddress.getAddress(), serverAddress.getPort());
     } finally {
       bossGroup.shutdownGracefully();
       workerGroup.shutdownGracefully();

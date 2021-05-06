@@ -1,4 +1,4 @@
-package com.celeste.internal.model;
+package com.celeste.internal.packets;
 
 import com.celeste.internal.controller.ChannelController;
 import io.grpc.netty.shaded.io.netty.channel.ChannelHandlerContext;
@@ -11,6 +11,6 @@ public abstract class PacketHandler {
 
   private final ChannelController controller;
 
-  public abstract void readPacket(final ChannelHandlerContext context, final PacketContent message);
+  public abstract void read(final ChannelHandlerContext context, final PacketContent message);
 
 }

@@ -1,4 +1,4 @@
-package com.celeste.internal.model.protocol;
+package com.celeste.internal.model;
 
 import java.io.Serializable;
 import lombok.Builder;
@@ -15,7 +15,7 @@ public final class ServerAddress implements Serializable {
   /**
    * The address of the host, "localhost" can be used.
    */
-  private final String host;
+  private final String address;
   /**
    * Port of the host, normally used as 25565
    */

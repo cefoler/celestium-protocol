@@ -12,14 +12,13 @@ public final class NetworkInitializer extends ChannelInitializer<SocketChannel> 
 
   @Override
   protected void initChannel(final SocketChannel channel) {
-    channel.config().setOption(ChannelOption.TCP_NODELAY, true);
     channel.config().setOption(ChannelOption.AUTO_CLOSE, true);
-    channel.config().setOption(ChannelOption.CONNECT_TIMEOUT_MILLIS, 10000);
+    channel.config().setOption(ChannelOption.CONNECT_TIMEOUT_MILLIS, 30000);
 
     final ChannelController controller = new ChannelController();
 
     channel.pipeline()
-        .addFirst("converter", new MessageConverter())
+        .addFirst("converter", new MessageConverter(controller))
         .addAfter("converter", "decoder", new MessageDecoder(controller))
         .addAfter("decoder", "controller", controller);
   }
@@ -30,4 +29,3 @@ public final class NetworkInitializer extends ChannelInitializer<SocketChannel> 
   }
 
 }
-

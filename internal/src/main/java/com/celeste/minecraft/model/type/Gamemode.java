@@ -1,4 +1,4 @@
-package com.celeste.internal.model.type;
+package com.celeste.minecraft.model.type;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,11 +1,11 @@
-package com.celeste.internal.views.handlers;
+package com.celeste.internal.packets.handlers;
 
 import com.celeste.internal.controller.ChannelController;
 import com.celeste.internal.exception.PacketException;
-import com.celeste.internal.model.PacketContent;
-import com.celeste.internal.model.PacketHandler;
-import com.celeste.internal.model.messages.HandshakeMessage;
-import com.celeste.internal.model.protocol.type.ConnectionState;
+import com.celeste.internal.model.type.ConnectionState;
+import com.celeste.internal.packets.PacketContent;
+import com.celeste.internal.packets.PacketHandler;
+import com.celeste.internal.packets.messages.HandshakeMessage;
 import io.grpc.netty.shaded.io.netty.channel.ChannelHandlerContext;
 
 public final class HandshakeHandler extends PacketHandler {
@@ -15,20 +15,24 @@ public final class HandshakeHandler extends PacketHandler {
   }
 
   @Override
-  public void readPacket(final ChannelHandlerContext context, final PacketContent message) {
+  public void read(final ChannelHandlerContext context, final PacketContent message) {
     final HandshakeMessage handshake = (HandshakeMessage) message;
 
     getController().setCreationTime(System.currentTimeMillis());
     getController().setProtocolVersion(handshake.getProtocolVersion());
 
-    switch(handshake.getState()) {
+    switch (handshake.getState()) {
       case STATUS: {
         getController().setState(ConnectionState.STATUS);
         // TODO: Set controller handler as StatusHandler
+        break;
       }
       case LOGIN: {
         getController().setState(ConnectionState.LOGIN);
-        // TODO: Set controller handler as LoginHandler
+
+        final LoginStartHandler handler = new LoginStartHandler(getController());
+        handler.read(context, message);
+        break;
       }
       default: throw new PacketException("The packet received has a invalid next state.");
     }

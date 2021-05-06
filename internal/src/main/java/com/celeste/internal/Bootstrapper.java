@@ -1,6 +1,6 @@
 package com.celeste.internal;
 
-import com.celeste.internal.model.protocol.ServerAddress;
+import com.celeste.internal.model.ServerAddress;
 import com.celeste.internal.protocol.ServerBootstrapper;
 
 public final class Bootstrapper {
@@ -22,7 +22,7 @@ public final class Bootstrapper {
 
   public void start() {
     server.init(ServerAddress.builder()
-        .host("localhost")
+        .address("localhost")
         .port(25565)
         .build()
     );

@@ -1,4 +1,4 @@
-package com.celeste.internal.model.protocol.type;
+package com.celeste.internal.model.type;
 
 import lombok.Getter;
 

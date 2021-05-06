@@ -2,9 +2,10 @@ package com.celeste.internal.protocol.codec;
 
 import com.celeste.internal.controller.ChannelController;
 import com.celeste.internal.exception.PacketException;
-import com.celeste.internal.model.Packet;
-import com.celeste.internal.model.PacketContent;
+import com.celeste.internal.packets.Packet;
+import com.celeste.internal.packets.PacketContent;
 import com.celeste.internal.protocol.util.ProtocolBuffer;
+import com.celeste.internal.util.Logging;
 import io.grpc.netty.shaded.io.netty.buffer.ByteBuf;
 import io.grpc.netty.shaded.io.netty.channel.ChannelHandlerContext;
 import io.grpc.netty.shaded.io.netty.handler.codec.ByteToMessageDecoder;
@@ -23,7 +24,7 @@ public final class MessageDecoder extends ByteToMessageDecoder {
 
   private final ChannelController controller;
 
-  protected void decode(ChannelHandlerContext context, ByteBuf bytebuf, List<Object> list) {
+  protected void decode(final ChannelHandlerContext context, final ByteBuf bytebuf, final List<Object> list) {
     final ProtocolBuffer buffer = new ProtocolBuffer(bytebuf);
     int packetId = buffer.readVarInt();
 
@@ -31,12 +32,12 @@ public final class MessageDecoder extends ByteToMessageDecoder {
     if (packet == null) throw new PacketException("A packet with unidentified id has been received: " + packetId);
 
     final PacketContent content = packet.read(buffer);
-
     list.add(content);
   }
 
   @Override
-  public void exceptionCaught(ChannelHandlerContext context, Throwable cause) {
+  public void exceptionCaught(final ChannelHandlerContext context, final Throwable cause) {
+    Logging.LOGGER.atWarning().log("A exception was caught at the MessageDecoder");
     cause.printStackTrace();
   }
 

@@ -1,12 +1,10 @@
-package com.celeste.internal.model.protocol;
+package com.celeste.internal.registry;
 
-import com.celeste.internal.registry.ProtocolRegistry;
-import com.celeste.internal.model.Packet;
-import com.celeste.internal.model.PacketContent;
-import com.celeste.internal.model.packets.HandshakePacket;
-import com.celeste.internal.model.protocol.type.ConnectionState;
+import com.celeste.internal.model.type.ConnectionState;
+import com.celeste.internal.packets.Packet;
+import com.celeste.internal.packets.PacketContent;
+import com.celeste.internal.packets.impl.HandshakePacket;
 import java.util.Map;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
@@ -30,9 +28,7 @@ public final class Protocol {
      */
     public Packet<? extends PacketContent> getPacket(final ConnectionState stage, final int packetId) {
         switch(stage) {
-            case HANDSHAKE: {
-                return new HandshakePacket();
-            }
+            case HANDSHAKE: return new HandshakePacket();
             case STATUS: return filter(ProtocolRegistry.INSTANCE.getStatusPackets(), packetId);
             case LOGIN: return filter(ProtocolRegistry.INSTANCE.getLoginPackets(), packetId);
             case PLAY: return filter(ProtocolRegistry.INSTANCE.getPlayPackets(), packetId);
@@ -40,10 +36,10 @@ public final class Protocol {
         }
     }
 
-    private Packet<?> filter(Map<Class<? extends PacketContent>, Packet> map, int id) {
+    private Packet<?> filter(final Map<Class<? extends PacketContent>, Packet<?>> map, final Integer id) {
         return map.values().stream()
-            .filter(packet -> packet.getId() != null)
-            .filter(packet -> packet.getId() == id)
+            .filter(packet -> packet.getInboundId() != null)
+            .filter(packet -> packet.getInboundId().equals(id))
             .findFirst()
             .orElse(null);
     }
