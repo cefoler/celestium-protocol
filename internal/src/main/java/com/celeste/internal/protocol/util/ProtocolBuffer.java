@@ -23,7 +23,7 @@ public final class ProtocolBuffer {
     int result = 0;
     byte next;
     do {
-      if (totalBytes > 4) throw new BufferException("VarInt is longer than the allowed 5 bytes");
+      if (totalBytes >= 5) throw new BufferException("VarInt is longer than the allowed 5 bytes");
 
       next = byteBuf.readByte();
       result |= (next & 0x7F) << (totalBytes * 7);
@@ -44,7 +44,7 @@ public final class ProtocolBuffer {
     long result = 0;
     byte next;
     do {
-      if (totalBytes > 9) throw new BufferException("VarLong is longer than the allowed 10 bytes");
+      if (totalBytes >= 10) throw new BufferException("VarLong is longer than the allowed 10 bytes");
 
       next = byteBuf.readByte();
       result |= (long) (next & 0x7F) << (totalBytes * 7);
@@ -103,7 +103,6 @@ public final class ProtocolBuffer {
     byte next;
     do {
       if (totalBytes > 4) break;
-
       if (byteBuf.readableBytes() <= 0) {
         byteBuf.resetReaderIndex();
         return false;
