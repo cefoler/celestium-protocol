@@ -20,6 +20,8 @@ public final class ServerBootstrapper {
   private ServerBootstrap server;
   private long startTime;
 
+  private boolean started = false;
+
   @SneakyThrows
   public void init(final ServerAddress serverAddress) {
     this.startTime = System.currentTimeMillis();
@@ -48,9 +50,10 @@ public final class ServerBootstrapper {
       final ChannelFuture channelFuture = server.bind(serverAddress.getAddress(), serverAddress.getPort()).sync();
 
       LOGGER.atInfo().log("Server listening at %s:%s", serverAddress.getAddress(), serverAddress.getPort());
-      LOGGER.atInfo().log("Duration of start: %s", Duration.between(Instant.ofEpochMilli(startTime), Instant.now()).toMillis());
+      LOGGER.atInfo().log("Duration of start: %sms", Duration.between(Instant.ofEpochMilli(startTime), Instant.now()).toMillis());
 
       channelFuture.channel().closeFuture().sync();
+      this.started = true;
     } catch (Exception exception) {
       LOGGER.atSevere().log("Server could not bind to the address, %s:%s", serverAddress.getAddress(), serverAddress.getPort());
     } finally {

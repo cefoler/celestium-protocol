@@ -7,22 +7,26 @@ import lombok.Data;
 
 /**
  * <p>The packet is the major information
- * transmitter for the CLIENT and SERVER side,
+ * transmitter for the {@link com.celeste.internal.model.type.ProtocolDirection} messages,
  * it contains three informations:
  *
  * <p>Length: Size of the protocol version + data bytes
  * <p>Packet ID: ID of the packet to indentify it's type,
  * the types can be found at {@link Protocol}
  * <p>Data: Array of bytes of the total data received
+ *
+ * <p>A packet ID can have two different types, if it's sent
+ * by the server, the ID is Inbound. And if it's sent by the
+ * client, it's Outbound</p>
  */
 @Data
 @AllArgsConstructor
-public abstract class Packet<Message extends PacketContent> {
+public abstract class Packet<M extends PacketContent> {
 
   private Integer inboundId;
   private Integer outboundId;
 
-  public abstract Class<Message> getMessage();
+  public abstract Class<M> getMessage();
 
   /**
    * Reads the received packet bytes sent through
@@ -36,7 +40,7 @@ public abstract class Packet<Message extends PacketContent> {
    *
    * @param buffer ProtocolBuffer
    */
-  public abstract Message read(final ProtocolBuffer buffer);
+  public abstract M read(final ProtocolBuffer buffer);
 
   /**
    * Writes the response through the ByteBuf
@@ -48,6 +52,6 @@ public abstract class Packet<Message extends PacketContent> {
    *
    * @param buffer ProtocolBuffer
    */
-  public abstract void write(final ProtocolBuffer buffer, Message packet);
+  public abstract void write(final ProtocolBuffer buffer, M packet);
 
 }

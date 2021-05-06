@@ -181,4 +181,20 @@ public final class ProtocolBuffer {
     byteBuf.writeBytes(bytes);
   }
 
+  /**
+   * Writes a String into the ByteBuf in the
+   * UTF-8 Charset
+   * @param string String
+   */
+  public void writeString(final String string, int input) {
+    byte[] bytes = string.getBytes(Charsets.UTF_8);
+
+    if (bytes.length > Short.MAX_VALUE || bytes.length > input) {
+      throw new BufferException("String is longer than allowed (" + string.length() + ")");
+    }
+
+    writeInt(bytes.length);
+    byteBuf.writeBytes(bytes);
+  }
+
 }

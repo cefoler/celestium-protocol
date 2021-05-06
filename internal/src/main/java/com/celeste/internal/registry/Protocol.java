@@ -20,13 +20,7 @@ public final class Protocol {
 
     public static final Protocol INSTANCE = new Protocol();
 
-    /**
-     * Get the Packet by the ID and Stage
-     * @param packetId Integer
-     *
-     * @return Protocol
-     */
-    public Packet<? extends PacketContent> getPacket(final ConnectionState stage, final int packetId) {
+    public Packet<? extends PacketContent> getPacketInbound(final ConnectionState stage, final int packetId) {
         switch(stage) {
             case HANDSHAKE: return new HandshakePacket();
             case STATUS: return filter(ProtocolRegistry.INSTANCE.getStatusPackets(), packetId);
@@ -40,6 +34,22 @@ public final class Protocol {
         return map.values().stream()
             .filter(packet -> packet.getInboundId() != null)
             .filter(packet -> packet.getInboundId().equals(id))
+            .findFirst()
+            .orElse(null);
+    }
+
+    public Packet<? extends PacketContent> getPacketOutbound(final ConnectionState state, final Class<? extends PacketContent> packet) {
+        switch(state) {
+            case STATUS: return filter(ProtocolRegistry.INSTANCE.getStatusPackets(), packet);
+            case LOGIN: return filter(ProtocolRegistry.INSTANCE.getLoginPackets(), packet);
+            case PLAY: return filter(ProtocolRegistry.INSTANCE.getPlayPackets(), packet);
+            default: return null;
+        }
+    }
+
+    private Packet<?> filter(final Map<Class<? extends PacketContent>, Packet<?>> map, final Class<? extends PacketContent> content) {
+        return map.values().stream()
+            .filter(packet -> packet.getMessage().equals(content))
             .findFirst()
             .orElse(null);
     }

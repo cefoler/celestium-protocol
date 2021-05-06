@@ -30,7 +30,9 @@ public final class HandshakeHandler extends PacketHandler {
       case LOGIN: {
         getController().setState(ConnectionState.LOGIN);
 
-        final LoginStartHandler handler = new LoginStartHandler(getController());
+        final LoginHandler handler = new LoginHandler(getController());
+        getController().setHandler(handler);
+
         handler.read(context, message);
         break;
       }

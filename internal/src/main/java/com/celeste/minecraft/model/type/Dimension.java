@@ -1,5 +1,6 @@
 package com.celeste.minecraft.model.type;
 
+import java.util.Arrays;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.jetbrains.annotations.Nullable;
@@ -19,11 +20,9 @@ public enum Dimension {
 
     @Nullable
     public static Dimension getById(int id) {
-        for (Dimension dimension : values()) {
-            if (dimension.getId() == id) return dimension;
-        }
-
-        return null;
+        return Arrays.stream(values()).filter(dimension -> dimension.getId() == id)
+            .findFirst()
+            .orElse(null);
     }
 
 }

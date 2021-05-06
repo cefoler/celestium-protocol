@@ -28,7 +28,7 @@ public final class MessageDecoder extends ByteToMessageDecoder {
     final ProtocolBuffer buffer = new ProtocolBuffer(bytebuf);
     int packetId = buffer.readVarInt();
 
-    final Packet<?> packet = controller.getProtocol().getPacket(controller.getState(), packetId);
+    final Packet<?> packet = controller.getProtocol().getPacketInbound(controller.getState(), packetId);
     if (packet == null) throw new PacketException("A packet with unidentified id has been received: " + packetId);
 
     final PacketContent content = packet.read(buffer);

@@ -1,5 +1,6 @@
 package com.celeste.minecraft.model.type;
 
+import java.util.Arrays;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.jetbrains.annotations.Nullable;
@@ -20,11 +21,9 @@ public enum Difficulty {
 
     @Nullable
     public static Difficulty getById(int id) {
-        for (Difficulty difficulty : values()) {
-            if (difficulty.getId() == id) return difficulty;
-        }
-
-        return null;
+        return Arrays.stream(values()).filter(difficulty -> difficulty.getId() == id)
+            .findFirst()
+            .orElse(null);
     }
 
 }

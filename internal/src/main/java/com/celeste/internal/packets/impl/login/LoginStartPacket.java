@@ -1,4 +1,4 @@
-package com.celeste.internal.packets.impl;
+package com.celeste.internal.packets.impl.login;
 
 import com.celeste.internal.packets.Packet;
 import com.celeste.internal.packets.messages.LoginStartMessage;
@@ -19,8 +19,6 @@ public final class LoginStartPacket extends Packet<LoginStartMessage> {
   @Override
   public LoginStartMessage read(final ProtocolBuffer buffer) {
     return new LoginStartMessage(buffer.readString(16));
-
-    // TODO:
   }
 
   @Override

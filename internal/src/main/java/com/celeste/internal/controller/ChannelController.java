@@ -5,6 +5,7 @@ import com.celeste.internal.packets.PacketContent;
 import com.celeste.internal.packets.PacketHandler;
 import com.celeste.internal.packets.handlers.HandshakeHandler;
 import com.celeste.internal.registry.Protocol;
+import io.grpc.netty.shaded.io.netty.channel.Channel;
 import io.grpc.netty.shaded.io.netty.channel.ChannelHandlerContext;
 import io.grpc.netty.shaded.io.netty.channel.SimpleChannelInboundHandler;
 import lombok.Getter;
@@ -14,24 +15,41 @@ import lombok.Setter;
 @Setter
 public final class ChannelController extends SimpleChannelInboundHandler<PacketContent> {
 
+  private Channel channel;
+
   private ConnectionState state;
 
   private int protocolVersion;
   private long creationTime;
-
-  private Protocol protocol = Protocol.INSTANCE;
+  private boolean offlineMode;
 
   private PacketHandler handler;
+  private Protocol protocol = Protocol.INSTANCE;
 
-  public ChannelController() {
+  public ChannelController(final Channel channel) {
+    this.channel = channel;
     this.state = ConnectionState.HANDSHAKE;
     this.handler = new HandshakeHandler(this);
+    this.offlineMode = false;
   }
 
+  /**
+   * Reads a PacketContent received to this channel
+   * @param channelHandlerContext ChannelHandlerContext
+   * @param packetContent PacketContent
+   */
   @Override
   protected void channelRead0(final ChannelHandlerContext channelHandlerContext, final PacketContent packetContent) {
     // The handler is changed event after event so it can fit properly to the content
     handler.read(channelHandlerContext, packetContent);
+  }
+
+  /**
+   * Dispatchs a packet into the channel
+   * @param packet PacketContent
+   */
+  public void dispatch(final PacketContent packet) {
+    channel.writeAndFlush(packet);
   }
 
 }

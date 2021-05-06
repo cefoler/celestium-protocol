@@ -1,5 +1,6 @@
 package com.celeste.minecraft.model.type;
 
+import java.util.Arrays;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.jetbrains.annotations.Nullable;
@@ -20,11 +21,9 @@ public enum Gamemode {
 
     @Nullable
     public static Gamemode getById(int id) {
-        for (Gamemode gamemode : values()) {
-            if (gamemode.getId() == id) return gamemode;
-        }
-
-        return null;
+        return Arrays.stream(values()).filter(gamemode -> gamemode.getId() == id)
+            .findFirst()
+            .orElse(null);
     }
 
 }

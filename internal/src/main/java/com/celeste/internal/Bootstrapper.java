@@ -1,19 +1,20 @@
 package com.celeste.internal;
 
+import com.celeste.internal.exception.BootstrapperException;
 import com.celeste.internal.model.ServerAddress;
 import com.celeste.internal.protocol.ServerBootstrapper;
 
 public final class Bootstrapper {
 
-  private ServerBootstrapper server;
+  private final ServerBootstrapper server;
 
   public Bootstrapper() {
-    try {
-      this.server = new ServerBootstrapper();
-      start();
-    } catch (Exception exception) {
-      exception.printStackTrace();
+    this.server = new ServerBootstrapper();
+    if (server.isStarted()) {
+      throw new BootstrapperException("The server is already connected!");
     }
+
+    start();
   }
 
   public static void main(String[] args) {

@@ -24,19 +24,18 @@ public final class MessageConverter extends ByteToMessageDecoder {
     if (!buffer.isVarInt()) return;
 
     final int length = buffer.readVarInt();
-    if (byteBuf.readableBytes() < length) {
-      byteBuf.resetReaderIndex();
-
-      if (controller.getState() == ConnectionState.HANDSHAKE && byteBuf.readUnsignedByte() == 254) {
-        // TODO: Add support for Legacy Server List Ping
-        context.close();
-      }
-
-      byteBuf.resetReaderIndex();
+    if (byteBuf.readableBytes() > length) {
+      list.add(byteBuf.readBytes(length));
       return;
     }
 
-    list.add(byteBuf.readBytes(length));
+    byteBuf.resetReaderIndex();
+    if (controller.getState() == ConnectionState.HANDSHAKE && byteBuf.readUnsignedByte() == 254) {
+      // TODO: Add support for Legacy Server List Ping
+      context.close();
+    }
+
+    byteBuf.resetReaderIndex();
   }
 
   @Override

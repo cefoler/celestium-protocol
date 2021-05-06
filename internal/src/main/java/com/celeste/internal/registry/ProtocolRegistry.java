@@ -3,7 +3,7 @@ package com.celeste.internal.registry;
 import com.celeste.internal.model.type.ConnectionState;
 import com.celeste.internal.packets.Packet;
 import com.celeste.internal.packets.PacketContent;
-import com.celeste.internal.packets.impl.LoginStartPacket;
+import com.celeste.internal.packets.impl.login.LoginStartPacket;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import lombok.Getter;
