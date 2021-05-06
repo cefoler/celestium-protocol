@@ -3,7 +3,7 @@
 Celestium is a project where our focus is to recreate a **new NMS and API** for minecraft developers.
 The code comparated with the **Mojang NMS** is more clean, structured and performatic.
 
-For the project pattern, we are using Netty as the protocol server, Flogger for logging and Jackson
+For the project pattern, we are using GRPC as the protocol server, Flogger for logging and Jackson
 for anything related in JSON.
 
 Want to contribute in this project?
