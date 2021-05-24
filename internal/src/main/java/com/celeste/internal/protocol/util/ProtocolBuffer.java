@@ -196,4 +196,21 @@ public final class ProtocolBuffer {
     byteBuf.writeBytes(bytes);
   }
 
+  public int readVarInt(final byte[] bytes) {
+    int totalBytes = 0;
+
+    int result = 0;
+    byte next;
+    for (int i = 0; i < bytes.length; i++) {
+      if (totalBytes >= 5) throw new BufferException("VarInt is longer than the allowed 5 bytes");
+
+      next = byteBuf.readByte();
+      result |= (next & 0x7F) << (totalBytes * 7);
+
+      totalBytes++;
+    }
+
+    return result;
+  }
+
 }

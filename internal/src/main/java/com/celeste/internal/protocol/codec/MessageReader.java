@@ -2,6 +2,7 @@ package com.celeste.internal.protocol.codec;
 
 import com.celeste.internal.controller.ChannelController;
 import com.celeste.internal.model.type.ConnectionState;
+import com.celeste.internal.protocol.util.Compression;
 import com.celeste.internal.protocol.util.ProtocolBuffer;
 import com.google.common.flogger.FluentLogger;
 import io.grpc.netty.shaded.io.netty.buffer.ByteBuf;
@@ -21,21 +22,22 @@ public final class MessageReader extends ByteToMessageDecoder {
     byteBuf.markReaderIndex();
 
     final ProtocolBuffer buffer = new ProtocolBuffer(byteBuf);
-    if (!buffer.isVarInt()) return;
+    if (!controller.isCompression()) {
+      if (!buffer.isVarInt()) return;
 
-    final int length = buffer.readVarInt();
-    if (byteBuf.readableBytes() > length) {
-      list.add(byteBuf.readBytes(length));
+      final int length = buffer.readVarInt();
+      if (byteBuf.readableBytes() > length) {
+        list.add(byteBuf.readBytes(length));
+        return;
+      }
+
+      byteBuf.resetReaderIndex();
       return;
     }
 
-    byteBuf.resetReaderIndex();
-    if (controller.getState() == ConnectionState.HANDSHAKE && byteBuf.readUnsignedByte() == 254) {
-      // TODO: Add support for Legacy Server List Ping
-      context.close();
-    }
-
-    byteBuf.resetReaderIndex();
+    final byte[] data = Compression.decompress(byteBuf.array());
+    final int decompressedId = buffer.readVarInt(data);
+    // TODO: Handle decompression and flush with decompressed information for the Decoder
   }
 
   @Override

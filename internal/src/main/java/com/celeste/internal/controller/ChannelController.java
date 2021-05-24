@@ -23,6 +23,8 @@ public final class ChannelController extends SimpleChannelInboundHandler<PacketC
   private long creationTime;
   private boolean offlineMode;
 
+  private boolean compression;
+
   private PacketHandler handler;
   private Protocol protocol = Protocol.INSTANCE;
 
@@ -31,6 +33,7 @@ public final class ChannelController extends SimpleChannelInboundHandler<PacketC
     this.state = ConnectionState.HANDSHAKE;
     this.handler = new HandshakeHandler(this);
     this.offlineMode = false;
+    this.compression = false;
   }
 
   /**
