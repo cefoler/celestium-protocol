@@ -1,4 +1,4 @@
-package com.celeste.internal.packets.messages;
+package com.celeste.internal.packets.messages.login;
 
 import com.celeste.internal.packets.PacketContent;
 import java.util.UUID;

@@ -1,7 +1,7 @@
 package com.celeste.internal.registry;
 
 import com.celeste.internal.model.type.ConnectionState;
-import com.celeste.internal.packets.Packet;
+import com.celeste.internal.packets.AbstractPacket;
 import com.celeste.internal.packets.PacketContent;
 import com.celeste.internal.packets.impl.HandshakePacket;
 import java.util.Map;
@@ -20,7 +20,7 @@ public final class Protocol {
 
     public static final Protocol INSTANCE = new Protocol();
 
-    public Packet<? extends PacketContent> getPacketInbound(final ConnectionState stage, final int packetId) {
+    public AbstractPacket<? extends PacketContent> getPacketInbound(final ConnectionState stage, final int packetId) {
         switch(stage) {
             case HANDSHAKE: return new HandshakePacket();
             case STATUS: return filter(ProtocolRegistry.INSTANCE.getStatusPackets(), packetId);
@@ -30,7 +30,7 @@ public final class Protocol {
         }
     }
 
-    private Packet<?> filter(final Map<Class<? extends PacketContent>, Packet<?>> map, final Integer id) {
+    private AbstractPacket<?> filter(final Map<Class<? extends PacketContent>, AbstractPacket<?>> map, final Integer id) {
         return map.values().stream()
             .filter(packet -> packet.getInboundId() != null)
             .filter(packet -> packet.getInboundId().equals(id))
@@ -38,7 +38,7 @@ public final class Protocol {
             .orElse(null);
     }
 
-    public Packet<? extends PacketContent> getPacketOutbound(final ConnectionState state, final Class<? extends PacketContent> packet) {
+    public AbstractPacket<? extends PacketContent> getPacketOutbound(final ConnectionState state, final Class<? extends PacketContent> packet) {
         switch(state) {
             case STATUS: return filter(ProtocolRegistry.INSTANCE.getStatusPackets(), packet);
             case LOGIN: return filter(ProtocolRegistry.INSTANCE.getLoginPackets(), packet);
@@ -47,7 +47,7 @@ public final class Protocol {
         }
     }
 
-    private Packet<?> filter(final Map<Class<? extends PacketContent>, Packet<?>> map, final Class<? extends PacketContent> content) {
+    private AbstractPacket<?> filter(final Map<Class<? extends PacketContent>, AbstractPacket<?>> map, final Class<? extends PacketContent> content) {
         return map.values().stream()
             .filter(packet -> packet.getMessage().equals(content))
             .findFirst()

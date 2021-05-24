@@ -1,10 +1,10 @@
 package com.celeste.internal.packets.impl.login;
 
-import com.celeste.internal.packets.Packet;
-import com.celeste.internal.packets.messages.LoginSuccessMessage;
+import com.celeste.internal.packets.AbstractPacket;
+import com.celeste.internal.packets.messages.login.LoginSuccessMessage;
 import com.celeste.internal.protocol.util.ProtocolBuffer;
 
-public class LoginSuccessPacket extends Packet<LoginSuccessMessage> {
+public class LoginSuccessPacket extends AbstractPacket<LoginSuccessMessage> {
 
   public LoginSuccessPacket() {
     super(null, 0x02);

@@ -2,7 +2,7 @@ package com.celeste.internal.protocol.codec;
 
 import com.celeste.internal.controller.ChannelController;
 import com.celeste.internal.exception.PacketException;
-import com.celeste.internal.packets.Packet;
+import com.celeste.internal.packets.AbstractPacket;
 import com.celeste.internal.packets.PacketContent;
 import com.celeste.internal.protocol.util.ProtocolBuffer;
 import com.celeste.internal.util.Logging;
@@ -16,7 +16,7 @@ import lombok.AllArgsConstructor;
  * <p>Packet decoder for the main Netty pipeline on the bootstrap.
  *
  * <p>It receives the packets from the server and
- * sends a formatted {@link Packet} to the
+ * sends a formatted {@link AbstractPacket} to the
  * {@link ChannelController}
  */
 @AllArgsConstructor
@@ -28,7 +28,7 @@ public final class MessageDecoder extends ByteToMessageDecoder {
     final ProtocolBuffer buffer = new ProtocolBuffer(bytebuf);
     int packetId = buffer.readVarInt();
 
-    final Packet<?> packet = controller.getProtocol().getPacketInbound(controller.getState(), packetId);
+    final AbstractPacket<?> packet = controller.getProtocol().getPacketInbound(controller.getState(), packetId);
     if (packet == null) throw new PacketException("A packet with unidentified id has been received: " + packetId);
 
     final PacketContent content = packet.read(buffer);

@@ -1,7 +1,7 @@
 package com.celeste.internal.packets.impl;
 
 import com.celeste.internal.model.type.NextState;
-import com.celeste.internal.packets.Packet;
+import com.celeste.internal.packets.AbstractPacket;
 import com.celeste.internal.packets.messages.HandshakeMessage;
 import com.celeste.internal.protocol.util.ProtocolBuffer;
 import lombok.Getter;
@@ -14,7 +14,7 @@ import lombok.Getter;
  * <p>The NextState can be LOGIN or STATUS</p>
  */
 @Getter
-public final class HandshakePacket extends Packet<HandshakeMessage> {
+public final class HandshakePacket extends AbstractPacket<HandshakeMessage> {
 
   public HandshakePacket() {
     super(0x00, null);

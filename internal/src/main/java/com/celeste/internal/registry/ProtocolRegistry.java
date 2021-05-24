@@ -1,7 +1,7 @@
 package com.celeste.internal.registry;
 
 import com.celeste.internal.model.type.ConnectionState;
-import com.celeste.internal.packets.Packet;
+import com.celeste.internal.packets.AbstractPacket;
 import com.celeste.internal.packets.PacketContent;
 import com.celeste.internal.packets.impl.login.LoginStartPacket;
 import java.util.Map;
@@ -13,9 +13,9 @@ public final class ProtocolRegistry {
 
   public static final ProtocolRegistry INSTANCE = new ProtocolRegistry();
 
-  private final Map<Class<? extends PacketContent>, Packet<?>> statusPackets;
-  private final Map<Class<? extends PacketContent>, Packet<?>> loginPackets;
-  private final Map<Class<? extends PacketContent>, Packet<?>> playPackets;
+  private final Map<Class<? extends PacketContent>, AbstractPacket<?>> statusPackets;
+  private final Map<Class<? extends PacketContent>, AbstractPacket<?>> loginPackets;
+  private final Map<Class<? extends PacketContent>, AbstractPacket<?>> playPackets;
 
   public ProtocolRegistry() {
     this.statusPackets = new ConcurrentHashMap<>();
@@ -25,7 +25,7 @@ public final class ProtocolRegistry {
     register(new LoginStartPacket(), ConnectionState.LOGIN);
   }
 
-  private void register(final Packet<? extends PacketContent> packet, final ConnectionState state) {
+  private void register(final AbstractPacket<? extends PacketContent> packet, final ConnectionState state) {
     switch (state) {
       case STATUS: statusPackets.put(packet.getMessage(), packet);
       case LOGIN: loginPackets.put(packet.getMessage(), packet);

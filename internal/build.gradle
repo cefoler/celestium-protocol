@@ -18,6 +18,8 @@ dependencies {
 
     compileOnly 'org.apache.tomcat:annotations-api:6.0.53'
 
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.2'
+
     implementation group: 'com.mojang', name: 'authlib', version: '1.5.21'
 }
 

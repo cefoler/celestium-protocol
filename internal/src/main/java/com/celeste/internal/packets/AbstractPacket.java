@@ -21,7 +21,7 @@ import lombok.Data;
  */
 @Data
 @AllArgsConstructor
-public abstract class Packet<M extends PacketContent> {
+public abstract class AbstractPacket<M extends PacketContent> {
 
   private Integer inboundId;
   private Integer outboundId;

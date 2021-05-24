@@ -11,7 +11,7 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public final class MessageConverter extends ByteToMessageDecoder {
+public final class MessageReader extends ByteToMessageDecoder {
 
   private final FluentLogger logger = FluentLogger.forEnclosingClass();
   private final ChannelController controller;
