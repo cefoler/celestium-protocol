@@ -1,13 +1,15 @@
-package com.celeste.internal.packets.messages;
+package com.celeste.internal.packets.messages.status;
 
 import com.celeste.internal.packets.PacketContent;
 import com.celeste.internal.packets.entity.PlayerSimpleEntity;
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
-public final class ResponseMessage implements PacketContent {
+@Builder
+public final class StatusResponseMessage implements PacketContent {
 
   private final String versionName;
   private final int protocol;

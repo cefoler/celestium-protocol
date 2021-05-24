@@ -24,7 +24,11 @@ public final class HandshakeHandler extends PacketHandler {
     switch (handshake.getState()) {
       case STATUS: {
         getController().setState(ConnectionState.STATUS);
-        // TODO: Set controller handler as StatusHandler
+
+        final StatusHandler handler = new StatusHandler(getController());
+        getController().setHandler(handler);
+
+        handler.read(context, message);
         break;
       }
       case LOGIN: {

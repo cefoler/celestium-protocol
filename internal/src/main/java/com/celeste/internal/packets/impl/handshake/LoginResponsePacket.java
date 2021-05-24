@@ -1,30 +1,30 @@
 package com.celeste.internal.packets.impl.handshake;
 
 import com.celeste.internal.packets.AbstractPacket;
-import com.celeste.internal.packets.messages.ResponseMessage;
+import com.celeste.internal.packets.messages.status.StatusResponseMessage;
 import com.celeste.internal.protocol.util.ProtocolBuffer;
 import com.celeste.internal.util.JacksonAdapter;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import lombok.SneakyThrows;
 
-public final class LoginResponsePacket extends AbstractPacket<ResponseMessage> {
+public final class LoginResponsePacket extends AbstractPacket<StatusResponseMessage> {
 
   public LoginResponsePacket() {
     super(null, 0x00);
   }
 
   @Override
-  public Class<ResponseMessage> getMessage() {
-    return ResponseMessage.class;
+  public Class<StatusResponseMessage> getMessage() {
+    return StatusResponseMessage.class;
   }
 
   @Override
-  public ResponseMessage read(ProtocolBuffer buffer) {
+  public StatusResponseMessage read(ProtocolBuffer buffer) {
     return null;
   }
 
   @Override @SneakyThrows
-  public void write(final ProtocolBuffer buffer, final ResponseMessage packet) {
+  public void write(final ProtocolBuffer buffer, final StatusResponseMessage packet) {
     final JacksonAdapter adapter = JacksonAdapter.getInstance();
     final ObjectNode main = adapter.createNode();
 
