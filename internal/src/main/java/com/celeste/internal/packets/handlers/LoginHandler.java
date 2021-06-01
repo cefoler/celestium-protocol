@@ -10,6 +10,7 @@ import com.celeste.internal.packets.PacketHandler;
 import com.celeste.internal.packets.messages.login.LoginStartMessage;
 import com.celeste.internal.packets.messages.login.LoginSuccessMessage;
 import com.celeste.internal.registry.ConnectionRegistry;
+import com.celeste.internal.registry.KeepAliveRegistry;
 import com.celeste.internal.util.Logging;
 import com.celeste.minecraft.model.Location;
 import com.celeste.minecraft.model.type.Gamemode;
@@ -70,7 +71,9 @@ public final class LoginHandler extends PacketHandler {
             .build();
 
         ConnectionRegistry.INSTANCE.register(id, playerConnection);
+
         getController().setState(ConnectionState.PLAY);
+        KeepAliveRegistry.INSTANCE.register(id, new KeepAliveHandler(getController()));
 
         dispatch(new LoginSuccessMessage(id, username));
         break;
