@@ -21,4 +21,9 @@ public final class StatusResponseMessage implements PacketContent {
   private final String description;
   private final String icon;
 
+  @Override
+  public int getId() {
+    return 0;
+  }
+
 }

@@ -14,4 +14,9 @@ public final class HandshakeMessage implements PacketContent {
   private int port;
   private NextState state;
 
+  @Override
+  public int getId() {
+    return 0x00;
+  }
+
 }

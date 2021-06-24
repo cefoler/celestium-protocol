@@ -1,7 +1,7 @@
 package com.celeste.internal.packets.handlers;
 
 import com.celeste.internal.controller.ChannelController;
-import com.celeste.internal.exception.PacketException;
+import com.celeste.internal.exceptions.PacketException;
 import com.celeste.internal.model.type.StatusState;
 import com.celeste.internal.packets.PacketContent;
 import com.celeste.internal.packets.PacketHandler;
@@ -27,27 +27,25 @@ public final class StatusHandler extends PacketHandler {
   @Override
   public void read(final ChannelHandlerContext context, final PacketContent message) {
     switch (statusState) {
-      case REQUEST: {
+      case REQUEST -> {
         final StatusResponseMessage responseMessage = StatusResponseMessage.builder()
             .versionName("1.8.8")
             .protocol(47)
             .currentPlayers(0)
             .maximumPlayers(100)
-            .description("Minha motd")
+            .description("default motd")
             .onlinePlayers(new ArrayList<>())
             .icon("")
             .build();
 
         dispatch(responseMessage);
         setStatusState(StatusState.PING);
-        break;
       }
-      case PING: {
+      case PING -> {
         dispatch(message);
         setStatusState(StatusState.PONG);
-        break;
       }
-      default: throw new PacketException("The packet received has a invalid status state.");
+      default -> throw new PacketException("The packet received has a invalid status state.");
     }
   }
 

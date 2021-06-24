@@ -5,53 +5,40 @@ import com.celeste.internal.packets.AbstractPacket;
 import com.celeste.internal.packets.PacketContent;
 import com.celeste.internal.packets.impl.HandshakePacket;
 import java.util.Map;
-import lombok.Getter;
 
-/**
- * The protocol contains all registered
- * packets with it's values:
- *
- * <p>Packet ID: ID of each packet</p>
- * <p>Direction: Direction of the Packet, can be CLIENT or SERVER</p>
- * <p>Packet: Class of the provider of the packet</p>
- */
-@Getter
+import com.celeste.internal.registry.type.LoginPackets;
+import com.celeste.internal.registry.type.PlayPackets;
+
 public final class Protocol {
 
-    public static final Protocol INSTANCE = new Protocol();
+  public static final Protocol INSTANCE;
 
-    public AbstractPacket<? extends PacketContent> getPacketInbound(final ConnectionState stage, final int packetId) {
-        switch(stage) {
-            case HANDSHAKE: return new HandshakePacket();
-            case STATUS: return filter(ProtocolRegistry.INSTANCE.getStatusPackets(), packetId);
-            case LOGIN: return filter(ProtocolRegistry.INSTANCE.getLoginPackets(), packetId);
-            case PLAY: return filter(ProtocolRegistry.INSTANCE.getPlayPackets(), packetId);
-            default: return null;
-        }
-    }
+  static {
+    INSTANCE = new Protocol();
+  }
 
-    private AbstractPacket<?> filter(final Map<Class<? extends PacketContent>, AbstractPacket<?>> map, final Integer id) {
-        return map.values().stream()
-            .filter(packet -> packet.getInboundId() != null)
-            .filter(packet -> packet.getInboundId().equals(id))
-            .findFirst()
-            .orElse(null);
-    }
+  public AbstractPacket<? extends PacketContent> getPacketInbound(final ConnectionState stage, final int packetId) {
+    return switch (stage) {
+      case HANDSHAKE -> new HandshakePacket();
+      case LOGIN -> LoginPackets.getInbound(packetId).getPacket();
+      case PLAY -> PlayPackets.getInbound(packetId).getPacket();
+      default -> null;
+    };
+  }
 
-    public AbstractPacket<? extends PacketContent> getPacketOutbound(final ConnectionState state, final Class<? extends PacketContent> packet) {
-        switch(state) {
-            case STATUS: return filter(ProtocolRegistry.INSTANCE.getStatusPackets(), packet);
-            case LOGIN: return filter(ProtocolRegistry.INSTANCE.getLoginPackets(), packet);
-            case PLAY: return filter(ProtocolRegistry.INSTANCE.getPlayPackets(), packet);
-            default: return null;
-        }
-    }
+  public AbstractPacket<? extends PacketContent> getPacketOutbound(final ConnectionState state, final Class<? extends PacketContent> packet) {
+    return switch (state) {
+      case LOGIN -> LoginPackets.getByMessage(packet).getPacket();
+      case PLAY -> PlayPackets.getByMessage(packet).getPacket();
+      default -> null;
+    };
+  }
 
-    private AbstractPacket<?> filter(final Map<Class<? extends PacketContent>, AbstractPacket<?>> map, final Class<? extends PacketContent> content) {
-        return map.values().stream()
-            .filter(packet -> packet.getMessage().equals(content))
-            .findFirst()
-            .orElse(null);
-    }
+  private AbstractPacket<?> filter(final Map<Class<? extends PacketContent>, AbstractPacket<?>> map, final Class<? extends PacketContent> content) {
+    return map.values().stream()
+        .filter(packet -> packet.getMessage().equals(content))
+        .findFirst()
+        .orElse(null);
+  }
 
 }

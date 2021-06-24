@@ -3,7 +3,7 @@ package com.celeste.internal.packets.impl;
 import com.celeste.internal.model.type.NextState;
 import com.celeste.internal.packets.AbstractPacket;
 import com.celeste.internal.packets.messages.HandshakeMessage;
-import com.celeste.internal.protocol.util.ProtocolBuffer;
+import com.celeste.internal.protocol.utils.ProtocolBuffer;
 import lombok.Getter;
 
 /**

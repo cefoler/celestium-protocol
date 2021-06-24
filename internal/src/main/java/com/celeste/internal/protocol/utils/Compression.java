@@ -1,4 +1,4 @@
-package com.celeste.internal.protocol.util;
+package com.celeste.internal.protocol.utils;
 
 import lombok.SneakyThrows;
 

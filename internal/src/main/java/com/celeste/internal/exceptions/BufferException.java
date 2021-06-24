@@ -1,4 +1,4 @@
-package com.celeste.internal.exception;
+package com.celeste.internal.exceptions;
 
 public class BufferException extends RuntimeException {
 

@@ -1,6 +1,9 @@
-package com.celeste.internal.exception;
+package com.celeste.internal.exceptions;
 
 public class PacketException extends RuntimeException {
+
+  public PacketException() {
+  }
 
   public PacketException(String message) {
     super(message);

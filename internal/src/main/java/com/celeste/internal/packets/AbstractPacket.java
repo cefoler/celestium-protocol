@@ -1,7 +1,6 @@
 package com.celeste.internal.packets;
 
-import com.celeste.internal.protocol.util.ProtocolBuffer;
-import com.celeste.internal.registry.Protocol;
+import com.celeste.internal.protocol.utils.ProtocolBuffer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -11,8 +10,7 @@ import lombok.Data;
  * it contains three informations:
  *
  * <p>Length: Size of the protocol version + data bytes
- * <p>Packet ID: ID of the packet to indentify it's type,
- * the types can be found at {@link Protocol}
+ * <p>Packet ID: ID of the packet to indentify it's type
  * <p>Data: Array of bytes of the total data received
  *
  * <p>A packet ID can have two different types, if it's sent

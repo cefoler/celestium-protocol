@@ -1,19 +1,16 @@
 package com.celeste.internal;
 
-import com.celeste.internal.exception.BootstrapperException;
 import com.celeste.internal.model.ServerAddress;
 import com.celeste.internal.protocol.ServerBootstrapper;
+import lombok.Getter;
 
+@Getter
 public final class Bootstrapper {
 
   private final ServerBootstrapper server;
 
   public Bootstrapper() {
     this.server = new ServerBootstrapper();
-    if (server.isStarted()) {
-      throw new BootstrapperException("The server is already connected!");
-    }
-
     start();
   }
 

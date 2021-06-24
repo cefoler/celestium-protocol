@@ -17,11 +17,11 @@ public enum Dimension {
   OVERWORLD(0),
   END(1);
 
-  private final int id;
+  private final int data;
 
   @Nullable
-  public static Dimension getById(int id) {
-    return Arrays.stream(values()).filter(dimension -> dimension.getId() == id)
+  public static Dimension get(int id) {
+    return Arrays.stream(values()).filter(dimension -> dimension.getData() == id)
         .findFirst()
         .orElse(null);
   }

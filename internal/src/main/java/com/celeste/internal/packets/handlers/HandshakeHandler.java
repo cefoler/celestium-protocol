@@ -1,7 +1,7 @@
 package com.celeste.internal.packets.handlers;
 
 import com.celeste.internal.controller.ChannelController;
-import com.celeste.internal.exception.PacketException;
+import com.celeste.internal.exceptions.PacketException;
 import com.celeste.internal.model.type.ConnectionState;
 import com.celeste.internal.packets.PacketContent;
 import com.celeste.internal.packets.PacketHandler;
@@ -22,25 +22,23 @@ public final class HandshakeHandler extends PacketHandler {
     getController().setProtocolVersion(handshake.getProtocolVersion());
 
     switch (handshake.getState()) {
-      case STATUS: {
+      case STATUS -> {
         getController().setState(ConnectionState.STATUS);
 
         final StatusHandler handler = new StatusHandler(getController());
         getController().setHandler(handler);
 
         handler.read(context, message);
-        break;
       }
-      case LOGIN: {
+      case LOGIN -> {
         getController().setState(ConnectionState.LOGIN);
 
         final LoginHandler handler = new LoginHandler(getController());
         getController().setHandler(handler);
 
         handler.read(context, message);
-        break;
       }
-      default: throw new PacketException("The packet received has a invalid next state.");
+      default -> throw new PacketException("The packet received has a invalid next state.");
     }
   }
 

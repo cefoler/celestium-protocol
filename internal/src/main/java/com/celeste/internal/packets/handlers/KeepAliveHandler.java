@@ -12,14 +12,12 @@ import java.util.concurrent.TimeUnit;
 
 public final class KeepAliveHandler extends PacketHandler {
 
-  private final ScheduledExecutorService scheduledExecutorService;
-
   public KeepAliveHandler(final ChannelController controller) {
     super(controller);
-    this.scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
+    final ScheduledExecutorService scheduled = Executors.newSingleThreadScheduledExecutor();
 
     final KeepAliveMessage messageOne = new KeepAliveMessage(1);
-    scheduledExecutorService.scheduleAtFixedRate(() -> dispatch(messageOne), 5, 30, TimeUnit.SECONDS);
+    scheduled.scheduleAtFixedRate(() -> dispatch(messageOne), 5, 30, TimeUnit.SECONDS);
   }
 
   @Override

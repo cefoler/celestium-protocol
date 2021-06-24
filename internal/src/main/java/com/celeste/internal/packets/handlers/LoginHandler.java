@@ -1,7 +1,7 @@
 package com.celeste.internal.packets.handlers;
 
 import com.celeste.internal.controller.ChannelController;
-import com.celeste.internal.exception.PacketException;
+import com.celeste.internal.exceptions.PacketException;
 import com.celeste.internal.model.impl.PlayerConnection;
 import com.celeste.internal.model.type.ConnectionState;
 import com.celeste.internal.model.type.LoginState;
@@ -11,7 +11,7 @@ import com.celeste.internal.packets.messages.login.LoginStartMessage;
 import com.celeste.internal.packets.messages.login.LoginSuccessMessage;
 import com.celeste.internal.registry.ConnectionRegistry;
 import com.celeste.internal.registry.KeepAliveRegistry;
-import com.celeste.internal.util.Logging;
+import com.celeste.library.core.util.Logger;
 import com.celeste.minecraft.model.Location;
 import com.celeste.minecraft.model.type.Gamemode;
 import com.mojang.authlib.GameProfile;
@@ -39,25 +39,24 @@ public final class LoginHandler extends PacketHandler {
   @Override
   public void read(final ChannelHandlerContext context, final PacketContent message) {
     switch (loginState) {
-      case START: {
+      case START -> {
         final LoginStartMessage handshake = (LoginStartMessage) message;
         this.username = handshake.getUsername();
 
         if (getController().isOfflineMode()) {
-          Logging.LOGGER.atWarning().log("Server is currently at Offline mode. Initiating without Encryption.");
+          Logger.getLogger().atWarning().log("Server is currently at Offline mode. Initiating without Encryption.");
 
           setLoginState(LoginState.SUCCESS);
           return;
         }
 
         setLoginState(LoginState.ENCRYPTION_REQUEST);
-        break;
       }
-      case SUCCESS: {
-        // The ID is different according to the Encryption
+      case SUCCESS -> {
+        // Handle online mode
         if (getController().isOfflineMode()) {
-          this.id = UUID.nameUUIDFromBytes(("Player=" + username).getBytes(StandardCharsets.UTF_8));
-        } // TODO: Add ID after Encryption
+          this.id = UUID.nameUUIDFromBytes(("CelestiumPlayer=" + username).getBytes(StandardCharsets.UTF_8));
+        }
 
         final PlayerConnection playerConnection = PlayerConnection.builder()
             .gameProfile(new GameProfile(id, username))
@@ -73,12 +72,12 @@ public final class LoginHandler extends PacketHandler {
         ConnectionRegistry.INSTANCE.register(id, playerConnection);
 
         getController().setState(ConnectionState.PLAY);
+        getController().setHandler(new PlayHandler(getController()));
         KeepAliveRegistry.INSTANCE.register(id, new KeepAliveHandler(getController()));
 
         dispatch(new LoginSuccessMessage(id, username));
-        break;
       }
-      default: throw new PacketException("A invalid LoginState has been received.");
+      default -> throw new PacketException("A invalid LoginState has been received.");
     }
   }
 

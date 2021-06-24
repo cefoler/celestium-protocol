@@ -1,9 +1,8 @@
 package com.celeste.internal.protocol.codec;
 
 import com.celeste.internal.controller.ChannelController;
-import com.celeste.internal.model.type.ConnectionState;
-import com.celeste.internal.protocol.util.Compression;
-import com.celeste.internal.protocol.util.ProtocolBuffer;
+import com.celeste.internal.protocol.utils.Compression;
+import com.celeste.internal.protocol.utils.ProtocolBuffer;
 import com.google.common.flogger.FluentLogger;
 import io.grpc.netty.shaded.io.netty.buffer.ByteBuf;
 import io.grpc.netty.shaded.io.netty.channel.ChannelHandlerContext;

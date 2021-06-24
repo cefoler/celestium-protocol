@@ -1,6 +1,6 @@
-package com.celeste.internal.protocol.util;
+package com.celeste.internal.protocol.utils;
 
-import com.celeste.internal.exception.BufferException;
+import com.celeste.internal.exceptions.BufferException;
 import com.google.common.base.Charsets;
 import io.grpc.netty.shaded.io.netty.buffer.ByteBuf;
 import java.util.UUID;

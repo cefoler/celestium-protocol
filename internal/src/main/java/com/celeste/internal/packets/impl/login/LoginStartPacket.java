@@ -2,12 +2,13 @@ package com.celeste.internal.packets.impl.login;
 
 import com.celeste.internal.packets.AbstractPacket;
 import com.celeste.internal.packets.messages.login.LoginStartMessage;
-import com.celeste.internal.protocol.util.ProtocolBuffer;
+import com.celeste.internal.protocol.utils.ProtocolBuffer;
+import com.celeste.internal.registry.type.LoginPackets;
 
 public final class LoginStartPacket extends AbstractPacket<LoginStartMessage> {
 
   public LoginStartPacket() {
-    super(0x00, null);
+    super(LoginPackets.START.getInboundId(), null);
     System.out.println("RECEIVED LOGIN PACKET");
   }
 

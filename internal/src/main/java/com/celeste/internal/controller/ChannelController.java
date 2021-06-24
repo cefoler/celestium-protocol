@@ -4,7 +4,6 @@ import com.celeste.internal.model.type.ConnectionState;
 import com.celeste.internal.packets.PacketContent;
 import com.celeste.internal.packets.PacketHandler;
 import com.celeste.internal.packets.handlers.HandshakeHandler;
-import com.celeste.internal.registry.Protocol;
 import io.grpc.netty.shaded.io.netty.channel.Channel;
 import io.grpc.netty.shaded.io.netty.channel.ChannelHandlerContext;
 import io.grpc.netty.shaded.io.netty.channel.SimpleChannelInboundHandler;
@@ -26,7 +25,6 @@ public final class ChannelController extends SimpleChannelInboundHandler<PacketC
   private boolean compression;
 
   private PacketHandler handler;
-  private Protocol protocol = Protocol.INSTANCE;
 
   public ChannelController(final Channel channel) {
     this.channel = channel;

@@ -1,8 +1,7 @@
 package com.celeste.internal.protocol;
 
-import static com.celeste.internal.util.Logging.LOGGER;
-
 import com.celeste.internal.model.ServerAddress;
+import com.celeste.library.core.util.Logger;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import io.grpc.netty.shaded.io.netty.bootstrap.ServerBootstrap;
 import io.grpc.netty.shaded.io.netty.channel.ChannelFuture;
@@ -20,11 +19,12 @@ public final class ServerBootstrapper {
   private ServerBootstrap server;
   private long startTime;
 
-  private boolean started = false;
+  private boolean started;
 
   @SneakyThrows
   public void init(final ServerAddress serverAddress) {
     this.startTime = System.currentTimeMillis();
+    this.started = false;
 
     final EventLoopGroup bossGroup = new EpollEventLoopGroup(0, new ThreadFactoryBuilder()
         .setNameFormat("celestium-server-boss - %d")
@@ -49,13 +49,13 @@ public final class ServerBootstrapper {
 
       final ChannelFuture channelFuture = server.bind(serverAddress.getAddress(), serverAddress.getPort()).sync();
 
-      LOGGER.atInfo().log("Server listening at %s:%s", serverAddress.getAddress(), serverAddress.getPort());
-      LOGGER.atInfo().log("Duration of start: %sms", Duration.between(Instant.ofEpochMilli(startTime), Instant.now()).toMillis());
+      Logger.getLogger().atInfo().log("Server listening at %s:%s", serverAddress.getAddress(), serverAddress.getPort());
+      Logger.getLogger().atInfo().log("Duration of start: %sms", Duration.between(Instant.ofEpochMilli(startTime), Instant.now()).toMillis());
 
       channelFuture.channel().closeFuture().sync();
       this.started = true;
     } catch (Exception exception) {
-      LOGGER.atSevere().log("Server could not bind to the address, %s:%s", serverAddress.getAddress(), serverAddress.getPort());
+      Logger.getLogger().atSevere().log("Server could not bind to the address, %s:%s", serverAddress.getAddress(), serverAddress.getPort());
     } finally {
       bossGroup.shutdownGracefully();
       workerGroup.shutdownGracefully();

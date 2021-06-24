@@ -1,6 +1,7 @@
 package com.celeste.internal.packets.messages.play;
 
 import com.celeste.internal.packets.PacketContent;
+import com.celeste.internal.registry.type.PlayPackets;
 import com.celeste.minecraft.model.type.Gamemode;
 import com.celeste.minecraft.model.world.World;
 import lombok.Data;
@@ -17,5 +18,10 @@ public final class JoinMessage implements PacketContent {
 
   private final boolean debug;
   private final boolean respawnScreen;
+
+  @Override
+  public int getId() {
+    return PlayPackets.JOIN.getOutboundId();
+  }
 
 }

@@ -5,6 +5,7 @@ import com.celeste.internal.protocol.codec.MessageReader;
 import com.celeste.internal.protocol.codec.MessageDecoder;
 import com.celeste.internal.protocol.codec.MessageEncoder;
 import com.celeste.internal.protocol.codec.MessageWriter;
+import com.celeste.library.core.util.Logger;
 import io.grpc.netty.shaded.io.netty.channel.ChannelHandlerContext;
 import io.grpc.netty.shaded.io.netty.channel.ChannelInitializer;
 import io.grpc.netty.shaded.io.netty.channel.ChannelOption;
@@ -29,7 +30,7 @@ public final class NetworkInitializer extends ChannelInitializer<SocketChannel> 
 
   @Override
   public void exceptionCaught(final ChannelHandlerContext context, final Throwable cause)  {
-    cause.printStackTrace();
+    Logger.getLogger().atWarning().log(cause.getMessage());
   }
 
 }

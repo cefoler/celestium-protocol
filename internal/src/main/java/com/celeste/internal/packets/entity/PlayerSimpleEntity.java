@@ -1,10 +1,12 @@
 package com.celeste.internal.packets.entity;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 
 import java.util.UUID;
 
-@AllArgsConstructor
+@Data
+@Builder
 public final class PlayerSimpleEntity {
 
   private final String name;
