@@ -1,6 +1,5 @@
 allprojects {
     apply plugin: 'java'
-    apply plugin: 'maven'
 
     group 'com.celeste'
     version '1.0-SNAPSHOT'
@@ -10,7 +9,6 @@ allprojects {
 
     repositories {
         mavenCentral()
-
         maven { url 'https://jitpack.io' }
     }
 
@@ -20,8 +18,8 @@ allprojects {
         compileOnly 'org.projectlombok:lombok:1.18.20'
         annotationProcessor 'org.projectlombok:lombok:1.18.20'
 
-        compileOnly 'org.jetbrains:annotations:20.1.0'
-        annotationProcessor 'org.jetbrains:annotations:20.1.0'
+        compileOnly 'org.jetbrains:annotations:21.0.1'
+        annotationProcessor 'org.jetbrains:annotations:21.0.1'
     }
 
     jar {
@@ -35,5 +33,4 @@ allprojects {
     tasks.withType(Jar) {
         destinationDirectory.set(file("$rootDir/target/"))
     }
-
 }
