@@ -21,7 +21,8 @@ public enum Gamemode {
 
     @Nullable
     public static Gamemode getById(int id) {
-        return Arrays.stream(values()).filter(gamemode -> gamemode.getId() == id)
+        return Arrays.stream(values())
+            .filter(gamemode -> gamemode.getId() == id)
             .findFirst()
             .orElse(null);
     }

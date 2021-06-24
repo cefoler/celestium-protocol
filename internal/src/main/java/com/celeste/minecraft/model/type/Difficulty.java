@@ -1,6 +1,7 @@
 package com.celeste.minecraft.model.type;
 
 import java.util.Arrays;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.jetbrains.annotations.Nullable;
@@ -12,18 +13,18 @@ import org.jetbrains.annotations.Nullable;
 @AllArgsConstructor
 public enum Difficulty {
 
-    PEACEFUL(0),
-    EASY(1),
-    NORMAL(2),
-    HARD(3);
+  PEACEFUL(0),
+  EASY(1),
+  NORMAL(2),
+  HARD(3);
 
-    private final int id;
+  private final int id;
 
-    @Nullable
-    public static Difficulty getById(int id) {
-        return Arrays.stream(values()).filter(difficulty -> difficulty.getId() == id)
-            .findFirst()
-            .orElse(null);
-    }
+  @Nullable
+  public static Difficulty getById(int id) {
+    return Arrays.stream(values()).filter(difficulty -> difficulty.getId() == id)
+        .findFirst()
+        .orElse(null);
+  }
 
 }

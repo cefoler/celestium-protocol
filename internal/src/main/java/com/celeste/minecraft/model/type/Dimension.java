@@ -1,6 +1,7 @@
 package com.celeste.minecraft.model.type;
 
 import java.util.Arrays;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.jetbrains.annotations.Nullable;
@@ -12,17 +13,17 @@ import org.jetbrains.annotations.Nullable;
 @AllArgsConstructor
 public enum Dimension {
 
-    NETHER(-1),
-    OVERWORLD(0),
-    END(1);
+  NETHER(-1),
+  OVERWORLD(0),
+  END(1);
 
-    private final int id;
+  private final int id;
 
-    @Nullable
-    public static Dimension getById(int id) {
-        return Arrays.stream(values()).filter(dimension -> dimension.getId() == id)
-            .findFirst()
-            .orElse(null);
-    }
+  @Nullable
+  public static Dimension getById(int id) {
+    return Arrays.stream(values()).filter(dimension -> dimension.getId() == id)
+        .findFirst()
+        .orElse(null);
+  }
 
 }
