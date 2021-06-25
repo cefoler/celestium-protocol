@@ -1,4 +1,4 @@
-package com.celeste.internal.packets.messages.play;
+package com.celeste.internal.packets.messages.play.world;
 
 import com.celeste.internal.packets.PacketContent;
 import com.celeste.internal.registry.type.PlayPackets;

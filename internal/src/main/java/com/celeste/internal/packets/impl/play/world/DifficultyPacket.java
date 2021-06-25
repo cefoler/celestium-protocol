@@ -1,7 +1,7 @@
-package com.celeste.internal.packets.impl.play;
+package com.celeste.internal.packets.impl.play.world;
 
 import com.celeste.internal.packets.AbstractPacket;
-import com.celeste.internal.packets.messages.play.DifficultyMessage;
+import com.celeste.internal.packets.messages.play.world.DifficultyMessage;
 import com.celeste.internal.protocol.utils.ProtocolBuffer;
 import com.celeste.internal.registry.type.PlayPackets;
 

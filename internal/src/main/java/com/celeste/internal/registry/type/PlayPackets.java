@@ -2,14 +2,16 @@ package com.celeste.internal.registry.type;
 
 import com.celeste.internal.packets.AbstractPacket;
 import com.celeste.internal.packets.PacketContent;
-import com.celeste.internal.packets.impl.play.DifficultyPacket;
+import com.celeste.internal.packets.impl.play.player.HeldSlotChangePacket;
+import com.celeste.internal.packets.impl.play.world.DifficultyPacket;
 import com.celeste.internal.packets.impl.play.JoinPacket;
 import com.celeste.internal.packets.impl.play.KeepAlivePacket;
-import com.celeste.internal.packets.impl.play.PlayerPositionPacket;
-import com.celeste.internal.packets.messages.play.DifficultyMessage;
+import com.celeste.internal.packets.impl.play.player.PlayerPositionPacket;
+import com.celeste.internal.packets.messages.play.player.HeldSlotChangeMessage;
+import com.celeste.internal.packets.messages.play.world.DifficultyMessage;
 import com.celeste.internal.packets.messages.play.JoinMessage;
 import com.celeste.internal.packets.messages.play.KeepAliveMessage;
-import com.celeste.internal.packets.messages.play.PlayerPositionMessage;
+import com.celeste.internal.packets.messages.play.player.PlayerPositionMessage;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -22,7 +24,8 @@ public enum PlayPackets {
   KEEP_ALIVE(null, 0x10, KeepAliveMessage.class, new KeepAlivePacket()),
   JOIN(null, 0x26, JoinMessage.class, new JoinPacket()),
   DIFFICULTY(null, 0x0E, DifficultyMessage.class, new DifficultyPacket()),
-  PLAYER_POSITION_AND_LOOK(null, 0x38, PlayerPositionMessage.class, new PlayerPositionPacket());
+  PLAYER_POSITION_AND_LOOK(null, 0x38, PlayerPositionMessage.class, new PlayerPositionPacket()),
+  HELD_SLOT_CHANGE(null, 0x48, HeldSlotChangeMessage.class, new HeldSlotChangePacket());
 
   private final Integer inboundId;
   private final Integer outboundId;
