@@ -1,6 +1,6 @@
 package com.celeste.internal.packets.impl;
 
-import com.celeste.internal.model.type.NextState;
+import com.celeste.internal.model.protocol.state.NextState;
 import com.celeste.internal.packets.AbstractPacket;
 import com.celeste.internal.packets.messages.HandshakeMessage;
 import com.celeste.internal.protocol.utils.ProtocolBuffer;
@@ -32,7 +32,7 @@ public final class HandshakePacket extends AbstractPacket<HandshakeMessage> {
         .protocolVersion(buffer.readVarInt())
         .address(buffer.readString(255))
         .port(buffer.getByteBuf().readUnsignedShort())
-        .state(NextState.getById(buffer.readVarInt()))
+        .state(NextState.get(buffer.readVarInt()))
         .build();
   }
 

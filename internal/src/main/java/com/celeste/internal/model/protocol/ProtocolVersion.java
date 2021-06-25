@@ -2,6 +2,9 @@ package com.celeste.internal.model.protocol;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Arrays;
 
 @Getter
 @AllArgsConstructor
@@ -21,5 +24,13 @@ public enum ProtocolVersion {
 
   private final int version;
   private final String name;
+
+  @Nullable
+  public static ProtocolVersion get(int version) {
+    return Arrays.stream(values())
+        .filter(protocolVersion -> protocolVersion.getVersion() == version)
+        .findFirst()
+        .orElse(null);
+  }
 
 }

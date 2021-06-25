@@ -10,9 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public final class Location implements Serializable {
 
-  private float x, y, z;
-
-  private float yaw;
-  private float pitch;
+  private float x, y, z, yaw, pitch;
 
 }

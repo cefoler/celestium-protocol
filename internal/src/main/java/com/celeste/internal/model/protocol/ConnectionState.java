@@ -1,4 +1,4 @@
-package com.celeste.internal.model.type;
+package com.celeste.internal.model.protocol;
 
 import lombok.Getter;
 
@@ -13,11 +13,6 @@ public enum ConnectionState {
   PLAY,
   LOGIN,
   STATUS,
-  /**
-   * Client side connection is current sending
-   * and receiving packets for the Handshake
-   * and the Login event.
-   */
-  HANDSHAKE,
+  HANDSHAKE
 
 }

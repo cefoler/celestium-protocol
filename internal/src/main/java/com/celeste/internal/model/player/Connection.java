@@ -1,6 +1,7 @@
-package com.celeste.internal.model;
+package com.celeste.internal.model.player;
 
-import com.celeste.internal.model.type.ConnectionState;
+import com.celeste.internal.model.protocol.ProtocolVersion;
+import com.celeste.internal.model.protocol.ConnectionState;
 import com.celeste.minecraft.model.Location;
 import com.celeste.minecraft.model.type.Gamemode;
 import java.net.InetSocketAddress;
@@ -16,7 +17,7 @@ public interface Connection {
   int getLatency();
   InetSocketAddress getAddress();
 
-  int getProtocolVersion();
+  ProtocolVersion getProtocolVersion();
   long getFirstJoin();
 
   Location getLocation();

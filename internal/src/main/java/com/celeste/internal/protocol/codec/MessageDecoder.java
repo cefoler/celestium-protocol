@@ -1,7 +1,7 @@
 package com.celeste.internal.protocol.codec;
 
 import com.celeste.internal.controllers.ChannelController;
-import com.celeste.internal.exceptions.PacketException;
+import com.celeste.internal.exceptions.protocol.PacketException;
 import com.celeste.internal.packets.AbstractPacket;
 import com.celeste.internal.packets.PacketContent;
 import com.celeste.internal.protocol.utils.ProtocolBuffer;

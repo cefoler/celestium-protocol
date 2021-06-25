@@ -1,6 +1,6 @@
 package com.celeste.internal.registry;
 
-import com.celeste.internal.model.impl.PlayerConnection;
+import com.celeste.internal.model.player.impl.PlayerConnection;
 import java.util.UUID;
 
 import com.celeste.library.core.model.registry.Registry;

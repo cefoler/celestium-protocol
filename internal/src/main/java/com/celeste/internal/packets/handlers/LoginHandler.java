@@ -1,12 +1,14 @@
 package com.celeste.internal.packets.handlers;
 
 import com.celeste.internal.controllers.ChannelController;
-import com.celeste.internal.exceptions.PacketException;
-import com.celeste.internal.model.impl.PlayerConnection;
-import com.celeste.internal.model.type.ConnectionState;
-import com.celeste.internal.model.type.LoginState;
+import com.celeste.internal.exceptions.protocol.PacketException;
+import com.celeste.internal.model.player.impl.PlayerConnection;
+import com.celeste.internal.model.protocol.ConnectionState;
+import com.celeste.internal.model.protocol.state.LoginState;
 import com.celeste.internal.packets.PacketContent;
 import com.celeste.internal.packets.PacketHandler;
+import com.celeste.internal.packets.handlers.play.KeepAliveHandler;
+import com.celeste.internal.packets.handlers.play.PlayHandler;
 import com.celeste.internal.packets.messages.login.LoginStartMessage;
 import com.celeste.internal.packets.messages.login.LoginSuccessMessage;
 import com.celeste.internal.registry.ConnectionRegistry;

@@ -15,7 +15,7 @@ public final class DifficultyMessage implements PacketContent {
 
   @Override
   public int getId() {
-    return 0x0E;
+    return PlayPackets.JOIN.getOutboundId();
   }
 
 }

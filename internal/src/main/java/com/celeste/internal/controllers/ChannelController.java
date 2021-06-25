@@ -1,6 +1,7 @@
 package com.celeste.internal.controllers;
 
-import com.celeste.internal.model.type.ConnectionState;
+import com.celeste.internal.model.protocol.ConnectionState;
+import com.celeste.internal.model.protocol.ProtocolVersion;
 import com.celeste.internal.packets.PacketContent;
 import com.celeste.internal.packets.PacketHandler;
 import com.celeste.internal.packets.handlers.HandshakeHandler;
@@ -18,7 +19,7 @@ public final class ChannelController extends SimpleChannelInboundHandler<PacketC
 
   private ConnectionState state;
 
-  private int protocolVersion;
+  private ProtocolVersion protocolVersion;
   private long creationTime;
   private boolean offlineMode;
 

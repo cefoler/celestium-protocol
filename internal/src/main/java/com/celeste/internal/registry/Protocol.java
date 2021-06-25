@@ -1,6 +1,6 @@
 package com.celeste.internal.registry;
 
-import com.celeste.internal.model.type.ConnectionState;
+import com.celeste.internal.model.protocol.ConnectionState;
 import com.celeste.internal.packets.AbstractPacket;
 import com.celeste.internal.packets.PacketContent;
 import com.celeste.internal.packets.impl.HandshakePacket;

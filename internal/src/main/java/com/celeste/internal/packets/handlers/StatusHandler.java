@@ -2,9 +2,9 @@ package com.celeste.internal.packets.handlers;
 
 import com.celeste.internal.controllers.ChannelController;
 import com.celeste.internal.controllers.ServerController;
-import com.celeste.internal.exceptions.PacketException;
+import com.celeste.internal.exceptions.protocol.PacketException;
 import com.celeste.internal.model.server.ServerSettings;
-import com.celeste.internal.model.type.StatusState;
+import com.celeste.internal.model.protocol.state.StatusState;
 import com.celeste.internal.packets.PacketContent;
 import com.celeste.internal.packets.PacketHandler;
 import com.celeste.internal.packets.messages.status.StatusResponseMessage;

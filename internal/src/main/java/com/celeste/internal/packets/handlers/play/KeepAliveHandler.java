@@ -1,4 +1,4 @@
-package com.celeste.internal.packets.handlers;
+package com.celeste.internal.packets.handlers.play;
 
 import com.celeste.internal.controllers.ChannelController;
 import com.celeste.internal.packets.PacketContent;

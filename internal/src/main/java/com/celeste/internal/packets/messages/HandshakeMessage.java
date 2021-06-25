@@ -1,6 +1,6 @@
 package com.celeste.internal.packets.messages;
 
-import com.celeste.internal.model.type.NextState;
+import com.celeste.internal.model.protocol.state.NextState;
 import com.celeste.internal.packets.PacketContent;
 import lombok.Builder;
 import lombok.Data;

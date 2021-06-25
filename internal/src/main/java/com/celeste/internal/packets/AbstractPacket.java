@@ -1,12 +1,13 @@
 package com.celeste.internal.packets;
 
+import com.celeste.internal.model.protocol.ProtocolDirection;
 import com.celeste.internal.protocol.utils.ProtocolBuffer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
  * <p>The packet is the major information
- * transmitter for the {@link com.celeste.internal.model.type.ProtocolDirection} messages,
+ * transmitter for the {@link ProtocolDirection} messages,
  * it contains three informations:
  *
  * <p>Length: Size of the protocol version + data bytes
