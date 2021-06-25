@@ -1,4 +1,4 @@
-package com.celeste.internal.controller;
+package com.celeste.internal.controllers;
 
 import com.celeste.internal.model.type.ConnectionState;
 import com.celeste.internal.packets.PacketContent;

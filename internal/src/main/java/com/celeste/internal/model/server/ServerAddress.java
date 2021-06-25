@@ -1,4 +1,4 @@
-package com.celeste.internal.model;
+package com.celeste.internal.model.server;
 
 import java.io.Serializable;
 import lombok.Builder;

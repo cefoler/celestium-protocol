@@ -1,7 +1,9 @@
 package com.celeste.internal.packets.handlers;
 
-import com.celeste.internal.controller.ChannelController;
+import com.celeste.internal.controllers.ChannelController;
+import com.celeste.internal.controllers.ServerController;
 import com.celeste.internal.exceptions.PacketException;
+import com.celeste.internal.model.server.ServerSettings;
 import com.celeste.internal.model.type.StatusState;
 import com.celeste.internal.packets.PacketContent;
 import com.celeste.internal.packets.PacketHandler;
@@ -9,8 +11,6 @@ import com.celeste.internal.packets.messages.status.StatusResponseMessage;
 import io.grpc.netty.shaded.io.netty.channel.ChannelHandlerContext;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.ArrayList;
 
 @Getter
 @Setter
@@ -28,14 +28,15 @@ public final class StatusHandler extends PacketHandler {
   public void read(final ChannelHandlerContext context, final PacketContent message) {
     switch (statusState) {
       case REQUEST -> {
+        final ServerSettings settings = ServerController.SETTINGS;
         final StatusResponseMessage responseMessage = StatusResponseMessage.builder()
-            .versionName("1.8.8")
-            .protocol(47)
-            .currentPlayers(0)
-            .maximumPlayers(100)
-            .description("default motd")
-            .onlinePlayers(new ArrayList<>())
-            .icon("")
+            .versionName(settings.getProtocol().getName())
+            .protocol(settings.getProtocol().getVersion())
+            .currentPlayers(settings.getCurrentPlayers())
+            .maximumPlayers(settings.getMaximumPlayers())
+            .description(settings.getDescription())
+            .onlinePlayers(settings.getOnlinePlayers())
+            .icon(settings.getIcon())
             .build();
 
         dispatch(responseMessage);

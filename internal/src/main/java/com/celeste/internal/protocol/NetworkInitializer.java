@@ -1,6 +1,6 @@
 package com.celeste.internal.protocol;
 
-import com.celeste.internal.controller.ChannelController;
+import com.celeste.internal.controllers.ChannelController;
 import com.celeste.internal.protocol.codec.MessageReader;
 import com.celeste.internal.protocol.codec.MessageDecoder;
 import com.celeste.internal.protocol.codec.MessageEncoder;

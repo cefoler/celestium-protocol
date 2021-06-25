@@ -1,6 +1,6 @@
 package com.celeste.internal.protocol.codec;
 
-import com.celeste.internal.controller.ChannelController;
+import com.celeste.internal.controllers.ChannelController;
 import com.celeste.internal.exceptions.PacketException;
 import com.celeste.internal.packets.AbstractPacket;
 import com.celeste.internal.packets.PacketContent;
@@ -16,7 +16,7 @@ public final class MessageEncoder extends MessageToByteEncoder<PacketContent> {
 
   private final ChannelController controller;
 
-  @Override
+  @Override @SuppressWarnings("unchecked")
   protected void encode(ChannelHandlerContext channelHandlerContext, PacketContent packetContent, ByteBuf byteBuf) {
     final AbstractPacket packet = Protocol.INSTANCE.getPacketOutbound(controller.getState(), packetContent.getClass());
     if (packet == null) {

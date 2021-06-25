@@ -1,6 +1,6 @@
 package com.celeste.internal;
 
-import com.celeste.internal.model.ServerAddress;
+import com.celeste.internal.model.server.ServerAddress;
 import com.celeste.internal.protocol.ServerBootstrapper;
 import lombok.Getter;
 

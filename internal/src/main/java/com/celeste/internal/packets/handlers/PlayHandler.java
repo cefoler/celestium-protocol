@@ -1,6 +1,6 @@
 package com.celeste.internal.packets.handlers;
 
-import com.celeste.internal.controller.ChannelController;
+import com.celeste.internal.controllers.ChannelController;
 import com.celeste.internal.exceptions.PacketException;
 import com.celeste.internal.model.type.ConnectionState;
 import com.celeste.internal.packets.AbstractPacket;
@@ -25,8 +25,6 @@ public final class PlayHandler extends PacketHandler {
     if (packet == null) {
       throw new PacketException();
     }
-
-    // TODO:
   }
 
 }

@@ -1,6 +1,6 @@
 package com.celeste.internal.protocol.codec;
 
-import com.celeste.internal.controller.ChannelController;
+import com.celeste.internal.controllers.ChannelController;
 import com.celeste.internal.protocol.utils.Compression;
 import com.celeste.internal.protocol.utils.ProtocolBuffer;
 import com.google.common.flogger.FluentLogger;

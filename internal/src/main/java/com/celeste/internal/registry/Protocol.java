@@ -4,7 +4,6 @@ import com.celeste.internal.model.type.ConnectionState;
 import com.celeste.internal.packets.AbstractPacket;
 import com.celeste.internal.packets.PacketContent;
 import com.celeste.internal.packets.impl.HandshakePacket;
-import java.util.Map;
 
 import com.celeste.internal.registry.type.LoginPackets;
 import com.celeste.internal.registry.type.PlayPackets;
@@ -32,13 +31,6 @@ public final class Protocol {
       case PLAY -> PlayPackets.getByMessage(packet).getPacket();
       default -> null;
     };
-  }
-
-  private AbstractPacket<?> filter(final Map<Class<? extends PacketContent>, AbstractPacket<?>> map, final Class<? extends PacketContent> content) {
-    return map.values().stream()
-        .filter(packet -> packet.getMessage().equals(content))
-        .findFirst()
-        .orElse(null);
   }
 
 }

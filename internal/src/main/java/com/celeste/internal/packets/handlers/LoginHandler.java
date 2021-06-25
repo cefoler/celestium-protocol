@@ -1,6 +1,6 @@
 package com.celeste.internal.packets.handlers;
 
-import com.celeste.internal.controller.ChannelController;
+import com.celeste.internal.controllers.ChannelController;
 import com.celeste.internal.exceptions.PacketException;
 import com.celeste.internal.model.impl.PlayerConnection;
 import com.celeste.internal.model.type.ConnectionState;

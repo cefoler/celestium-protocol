@@ -1,6 +1,6 @@
 package com.celeste.internal.protocol;
 
-import com.celeste.internal.model.ServerAddress;
+import com.celeste.internal.model.server.ServerAddress;
 import com.celeste.library.core.util.Logger;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import io.grpc.netty.shaded.io.netty.bootstrap.ServerBootstrap;
