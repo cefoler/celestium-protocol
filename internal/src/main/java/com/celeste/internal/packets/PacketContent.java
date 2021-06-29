@@ -8,6 +8,8 @@ package com.celeste.internal.packets;
  */
 public interface PacketContent {
 
-  int getId();
+  default int getId() {
+    return 940682680;
+  }
 
 }

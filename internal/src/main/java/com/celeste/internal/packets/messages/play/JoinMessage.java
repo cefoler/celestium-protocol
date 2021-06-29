@@ -6,6 +6,8 @@ import com.celeste.minecraft.model.type.Gamemode;
 import com.celeste.minecraft.model.world.World;
 import lombok.Data;
 
+import static com.celeste.internal.controllers.ServerController.*;
+
 @Data
 public final class JoinMessage implements PacketContent {
 
@@ -22,6 +24,16 @@ public final class JoinMessage implements PacketContent {
   @Override
   public int getId() {
     return PlayPackets.JOIN.getOutboundId();
+  }
+
+  public JoinMessage() {
+    this.entityId = (int) (LAST_ENTITY_ID + 1);
+    this.hardcore = PROPERTIES.isHardcore();
+    this.gamemode = PROPERTIES.getGamemode();
+    this.world = SETTINGS.getDefaultWorld();
+    this.viewDistance = PROPERTIES.getViewDistance();
+    this.debug = PROPERTIES.isDebug();
+    this.respawnScreen = false;
   }
 
 }

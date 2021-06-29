@@ -2,11 +2,9 @@ package com.celeste.internal.registry.type;
 
 import com.celeste.internal.packets.AbstractPacket;
 import com.celeste.internal.packets.PacketContent;
+import com.celeste.internal.packets.impl.handshake.StatusPingPacket;
 import com.celeste.internal.packets.impl.handshake.StatusResponsePacket;
-import com.celeste.internal.packets.impl.login.LoginStartPacket;
-import com.celeste.internal.packets.impl.login.LoginSuccessPacket;
-import com.celeste.internal.packets.messages.login.LoginStartMessage;
-import com.celeste.internal.packets.messages.login.LoginSuccessMessage;
+import com.celeste.internal.packets.messages.status.StatusPingMessage;
 import com.celeste.internal.packets.messages.status.StatusResponseMessage;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,33 +13,33 @@ import java.util.Arrays;
 
 @Getter
 @AllArgsConstructor
-public enum LoginPackets {
+public enum StatusPackets {
 
-  START(0x00, null, LoginStartMessage.class, new LoginStartPacket()),
-  SUCCESS(null, 0x02, LoginSuccessMessage.class, new LoginSuccessPacket());
+  RESPONSE(0x00, 0x00, StatusResponseMessage.class, new StatusResponsePacket()),
+  PING(0x01, 0x01, StatusPingMessage.class, new StatusPingPacket());
 
   private final Integer inboundId;
   private final Integer outboundId;
   private final Class<? extends PacketContent> message;
   private final AbstractPacket<? extends PacketContent> packet;
 
-  public static LoginPackets getByMessage(Class<? extends PacketContent> message) {
+  public static StatusPackets getByMessage(Class<? extends PacketContent> message) {
     return Arrays.stream(values())
-        .filter(loginPackets -> loginPackets.getMessage() == message)
+        .filter(packets -> packets.getMessage() == message)
         .findFirst()
         .orElse(null);
   }
 
-  public static LoginPackets getInbound(int id) {
+  public static StatusPackets getInbound(int id) {
     return Arrays.stream(values())
-        .filter(loginPackets -> loginPackets.getInboundId() == id)
+        .filter(packets -> packets.getInboundId() == id)
         .findFirst()
         .orElse(null);
   }
 
-  public static LoginPackets getOutbound(int id) {
+  public static StatusPackets getOutbound(int id) {
     return Arrays.stream(values())
-        .filter(loginPackets -> loginPackets.getOutboundId() == id)
+        .filter(packets -> packets.getOutboundId() == id)
         .findFirst()
         .orElse(null);
   }

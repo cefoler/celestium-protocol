@@ -7,6 +7,7 @@ import com.celeste.internal.packets.AbstractPacket;
 import com.celeste.internal.packets.PacketContent;
 import com.celeste.internal.packets.PacketHandler;
 import com.celeste.internal.registry.Protocol;
+import com.celeste.internal.registry.type.PlayPackets;
 import io.grpc.netty.shaded.io.netty.channel.ChannelHandlerContext;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,6 +25,10 @@ public final class PlayHandler extends PacketHandler {
     final AbstractPacket<?> packet = Protocol.INSTANCE.getPacketInbound(ConnectionState.PLAY, message.getId());
     if (packet == null) {
       throw new PacketException();
+    }
+
+    switch(message.getId()) {
+      // TODO: Handle each packets ID from Play that is inbound
     }
   }
 

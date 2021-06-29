@@ -4,14 +4,15 @@ import com.celeste.internal.packets.AbstractPacket;
 import com.celeste.internal.packets.messages.status.StatusResponseMessage;
 import com.celeste.internal.protocol.utils.ProtocolBuffer;
 import com.celeste.internal.registry.type.LoginPackets;
+import com.celeste.internal.registry.type.StatusPackets;
 import com.celeste.library.core.adapter.impl.jackson.JacksonAdapter;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import lombok.SneakyThrows;
 
-public final class LoginResponsePacket extends AbstractPacket<StatusResponseMessage> {
+public final class StatusResponsePacket extends AbstractPacket<StatusResponseMessage> {
 
-  public LoginResponsePacket() {
-    super(null, LoginPackets.RESPONSE.getOutboundId());
+  public StatusResponsePacket() {
+    super(null, 0x00);
   }
 
   @Override

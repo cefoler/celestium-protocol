@@ -8,6 +8,8 @@ import com.celeste.internal.model.protocol.state.StatusState;
 import com.celeste.internal.packets.PacketContent;
 import com.celeste.internal.packets.PacketHandler;
 import com.celeste.internal.packets.messages.status.StatusResponseMessage;
+import com.celeste.library.core.adapter.impl.jackson.JacksonAdapter;
+import com.celeste.library.core.util.Logger;
 import io.grpc.netty.shaded.io.netty.channel.ChannelHandlerContext;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,6 +30,7 @@ public final class StatusHandler extends PacketHandler {
   public void read(final ChannelHandlerContext context, final PacketContent message) {
     switch (statusState) {
       case REQUEST -> {
+        System.out.println("STATUS REQUEST");
         final ServerSettings settings = ServerController.SETTINGS;
         final StatusResponseMessage responseMessage = StatusResponseMessage.builder()
             .versionName(settings.getProtocol().getName())
@@ -43,10 +46,11 @@ public final class StatusHandler extends PacketHandler {
         setStatusState(StatusState.PING);
       }
       case PING -> {
+        System.out.println("STATUS PING");
         dispatch(message);
         setStatusState(StatusState.PONG);
       }
-      default -> throw new PacketException("The packet received has a invalid status state.");
+      default -> Logger.getLogger().atSevere().log("The packet received has a invalid status state.");
     }
   }
 

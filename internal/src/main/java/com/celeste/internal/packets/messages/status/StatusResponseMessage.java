@@ -2,6 +2,7 @@ package com.celeste.internal.packets.messages.status;
 
 import com.celeste.internal.packets.PacketContent;
 import com.celeste.internal.packets.entity.PlayerSimpleEntity;
+import com.celeste.internal.registry.type.StatusPackets;
 import lombok.Builder;
 import lombok.Data;
 
@@ -23,7 +24,7 @@ public final class StatusResponseMessage implements PacketContent {
 
   @Override
   public int getId() {
-    return 0;
+    return 0x00;
   }
 
 }

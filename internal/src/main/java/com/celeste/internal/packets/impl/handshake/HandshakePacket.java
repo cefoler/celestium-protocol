@@ -1,4 +1,4 @@
-package com.celeste.internal.packets.impl;
+package com.celeste.internal.packets.impl.handshake;
 
 import com.celeste.internal.model.protocol.state.NextState;
 import com.celeste.internal.packets.AbstractPacket;
@@ -18,7 +18,6 @@ public final class HandshakePacket extends AbstractPacket<HandshakeMessage> {
 
   public HandshakePacket() {
     super(0x00, null);
-    System.out.println("RECEIVED HANDSHAKE PACKET");
   }
 
   @Override

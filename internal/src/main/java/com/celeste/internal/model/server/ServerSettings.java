@@ -37,6 +37,14 @@ public final class ServerSettings implements Serializable {
     this.description = "default";
     this.icon = "";
     this.worlds = new ArrayList<>();
+    worlds.add(new World());
+  }
+
+  public World getDefaultWorld() {
+    return worlds.stream()
+        .filter(World::isDefault)
+        .findFirst()
+        .orElseThrow(() -> new IllegalStateException("No default worlds were created at the server."));
   }
 
 }

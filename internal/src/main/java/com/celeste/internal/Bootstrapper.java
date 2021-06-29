@@ -19,11 +19,7 @@ public final class Bootstrapper {
   }
 
   public void start() {
-    server.init(ServerAddress.builder()
-        .address("localhost")
-        .port(25565)
-        .build()
-    );
+    server.init(new ServerAddress("localhost", 25565));
   }
 
 }

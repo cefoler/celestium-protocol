@@ -6,7 +6,6 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-@Builder
 public final class WorldBorder implements Serializable {
 
   private double x, y;

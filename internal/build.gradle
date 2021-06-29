@@ -19,7 +19,7 @@ dependencies {
 
     compileOnly 'org.apache.tomcat:annotations-api:6.0.53'
 
-    implementation 'com.github.celesteoficial.java-library:core:2d9e9b8c55'
+    implementation 'com.github.celesteoficial.java-library:core:3.2.0'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.3'
 
     implementation 'com.mojang:authlib:1.5.21'

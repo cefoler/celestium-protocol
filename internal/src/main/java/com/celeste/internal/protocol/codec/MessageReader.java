@@ -3,6 +3,7 @@ package com.celeste.internal.protocol.codec;
 import com.celeste.internal.controllers.ChannelController;
 import com.celeste.internal.protocol.utils.Compression;
 import com.celeste.internal.protocol.utils.ProtocolBuffer;
+import com.celeste.library.core.util.Logger;
 import com.google.common.flogger.FluentLogger;
 import io.grpc.netty.shaded.io.netty.buffer.ByteBuf;
 import io.grpc.netty.shaded.io.netty.channel.ChannelHandlerContext;
@@ -13,7 +14,6 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public final class MessageReader extends ByteToMessageDecoder {
 
-  private final FluentLogger logger = FluentLogger.forEnclosingClass();
   private final ChannelController controller;
 
   @Override
@@ -22,7 +22,9 @@ public final class MessageReader extends ByteToMessageDecoder {
 
     final ProtocolBuffer buffer = new ProtocolBuffer(byteBuf);
     if (!controller.isCompression()) {
-      if (!buffer.isVarInt()) return;
+      if (!buffer.isVarInt()) {
+        return;
+      }
 
       final int length = buffer.readVarInt();
       if (byteBuf.readableBytes() > length) {
@@ -41,7 +43,7 @@ public final class MessageReader extends ByteToMessageDecoder {
 
   @Override
   public void exceptionCaught(final ChannelHandlerContext context, final Throwable cause) {
-    logger.atWarning().log("A exception was caught at the MessageConvert");
+    Logger.getLogger().atWarning().log("A exception was caught at the MessageConvert");
     cause.printStackTrace();
   }
 

@@ -11,6 +11,9 @@ import com.celeste.internal.packets.handlers.play.KeepAliveHandler;
 import com.celeste.internal.packets.handlers.play.PlayHandler;
 import com.celeste.internal.packets.messages.login.LoginStartMessage;
 import com.celeste.internal.packets.messages.login.LoginSuccessMessage;
+import com.celeste.internal.packets.messages.play.JoinMessage;
+import com.celeste.internal.packets.messages.play.player.PlayerAbilitiesMessage;
+import com.celeste.internal.packets.messages.play.world.DifficultyMessage;
 import com.celeste.internal.registry.ConnectionRegistry;
 import com.celeste.internal.registry.KeepAliveRegistry;
 import com.celeste.library.core.util.Logger;
@@ -42,6 +45,7 @@ public final class LoginHandler extends PacketHandler {
   public void read(final ChannelHandlerContext context, final PacketContent message) {
     switch (loginState) {
       case START -> {
+        System.out.println("LOGIN START");
         final LoginStartMessage handshake = (LoginStartMessage) message;
         this.username = handshake.getUsername();
 
@@ -55,6 +59,7 @@ public final class LoginHandler extends PacketHandler {
         setLoginState(LoginState.ENCRYPTION_REQUEST);
       }
       case SUCCESS -> {
+        System.out.println("LOGIN SUCCESS");
         // Handle online mode
         if (getController().isOfflineMode()) {
           this.id = UUID.nameUUIDFromBytes(("CelestiumPlayer=" + username).getBytes(StandardCharsets.UTF_8));
@@ -77,7 +82,12 @@ public final class LoginHandler extends PacketHandler {
         getController().setHandler(new PlayHandler(getController()));
         KeepAliveRegistry.INSTANCE.register(id, new KeepAliveHandler(getController()));
 
-        dispatch(new LoginSuccessMessage(id, username));
+        dispatch(
+            new LoginSuccessMessage(id, username),
+            new JoinMessage(),
+            new DifficultyMessage(),
+            new PlayerAbilitiesMessage()
+        );
       }
       default -> throw new PacketException("A invalid LoginState has been received.");
     }

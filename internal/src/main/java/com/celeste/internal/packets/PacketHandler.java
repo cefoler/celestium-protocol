@@ -1,6 +1,7 @@
 package com.celeste.internal.packets;
 
 import com.celeste.internal.controllers.ChannelController;
+import com.celeste.library.core.adapter.impl.jackson.JacksonAdapter;
 import io.grpc.netty.shaded.io.netty.channel.ChannelHandlerContext;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

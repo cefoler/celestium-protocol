@@ -30,10 +30,15 @@ public final class MessageDecoder extends ByteToMessageDecoder {
     int packetId = buffer.readVarInt();
 
     final AbstractPacket<?> packet = Protocol.INSTANCE.getPacketInbound(controller.getState(), packetId);
-    if (packet == null) throw new PacketException("A packet with unidentified id has been received: " + packetId);
+    if (packet == null) {
+      Logger.getLogger().atSevere().log("A packet with unidentified id has been received: " + packetId);
+      return;
+    }
 
     final PacketContent content = packet.read(buffer);
     list.add(content);
+
+    Logger.getLogger().atInfo().log("Received packet with ID: " + content.getId());
   }
 
   @Override

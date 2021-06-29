@@ -5,12 +5,12 @@ import com.celeste.minecraft.model.type.Difficulty;
 import com.celeste.minecraft.model.type.Dimension;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.Random;
 
 @Data
-@Builder
 public final class World implements Serializable {
 
   private final String name;
@@ -26,6 +26,8 @@ public final class World implements Serializable {
   private long time;
   private long creationDate;
 
+  private boolean isDefault;
+
   public World() {
     this.name = "default";
     this.seed = new Random().nextLong();
@@ -35,6 +37,7 @@ public final class World implements Serializable {
     this.border = new WorldBorder();
     this.time = 6000;
     this.creationDate = System.currentTimeMillis();
+    this.isDefault = false;
   }
 
 }

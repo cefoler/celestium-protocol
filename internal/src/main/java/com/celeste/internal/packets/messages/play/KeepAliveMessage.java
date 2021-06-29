@@ -6,6 +6,11 @@ import lombok.Data;
 @Data
 public final class KeepAliveMessage implements PacketContent {
 
-  private final long id;
+  private final long keepAliveId;
+
+  @Override
+  public int getId() {
+    return 0;
+  }
 
 }

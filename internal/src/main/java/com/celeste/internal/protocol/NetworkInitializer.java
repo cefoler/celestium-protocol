@@ -4,7 +4,6 @@ import com.celeste.internal.controllers.ChannelController;
 import com.celeste.internal.protocol.codec.MessageReader;
 import com.celeste.internal.protocol.codec.MessageDecoder;
 import com.celeste.internal.protocol.codec.MessageEncoder;
-import com.celeste.internal.protocol.codec.MessageWriter;
 import com.celeste.library.core.util.Logger;
 import io.grpc.netty.shaded.io.netty.channel.ChannelHandlerContext;
 import io.grpc.netty.shaded.io.netty.channel.ChannelInitializer;
@@ -21,11 +20,10 @@ public final class NetworkInitializer extends ChannelInitializer<SocketChannel> 
     final ChannelController controller = new ChannelController(channel);
 
     channel.pipeline()
-        .addFirst("converter", new MessageReader(controller))
-        .addAfter("converter", "decoder", new MessageDecoder(controller))
-        .addAfter("decoder", "controller", controller)
-        .addAfter("controller", "encoder", new MessageEncoder(controller))
-        .addAfter("encoder", "writer", new MessageWriter());
+        .addFirst("packetReader", new MessageReader(controller))
+        .addAfter("packetReader", "packetDecoder", new MessageDecoder(controller))
+        .addAfter("packetDecoder", "controller", controller)
+        .addLast("packetEncoder", new MessageEncoder(controller));
   }
 
   @Override

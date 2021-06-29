@@ -24,7 +24,7 @@ public class LoginSuccessPacket extends AbstractPacket<LoginSuccessMessage> {
 
   @Override
   public void write(final ProtocolBuffer buffer, final LoginSuccessMessage packet) {
-    buffer.writeUUID(packet.getId());
+    buffer.writeUUID(packet.getPlayerId());
     buffer.writeString(packet.getUsername());
   }
 

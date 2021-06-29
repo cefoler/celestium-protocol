@@ -17,7 +17,7 @@ public final class KeepAliveHandler extends PacketHandler {
     final ScheduledExecutorService scheduled = Executors.newSingleThreadScheduledExecutor();
 
     final KeepAliveMessage messageOne = new KeepAliveMessage(1);
-    scheduled.scheduleAtFixedRate(() -> dispatch(messageOne), 5, 30, TimeUnit.SECONDS);
+    scheduled.scheduleAtFixedRate(() -> dispatch(messageOne), 0, 20, TimeUnit.SECONDS);
   }
 
   @Override

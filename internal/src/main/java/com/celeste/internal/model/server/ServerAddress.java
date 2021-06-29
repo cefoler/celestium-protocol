@@ -1,6 +1,8 @@
 package com.celeste.internal.model.server;
 
 import java.io.Serializable;
+
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
@@ -10,6 +12,7 @@ import lombok.Data;
  */
 @Data
 @Builder
+@AllArgsConstructor
 public final class ServerAddress implements Serializable {
 
   /**
