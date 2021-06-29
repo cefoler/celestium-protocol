@@ -18,7 +18,7 @@ public final class Protocol {
     INSTANCE = new Protocol();
   }
 
-  public AbstractPacket getPacketInbound(final ConnectionState stage, final int packetId) {
+  public AbstractPacket<? extends PacketContent> getPacketInbound(final ConnectionState stage, final int packetId) {
     return switch (stage) {
       case HANDSHAKE -> new HandshakePacket();
       case STATUS -> StatusPackets.getInbound(packetId).getPacket();
@@ -27,7 +27,7 @@ public final class Protocol {
     };
   }
 
-  public AbstractPacket getPacketOutbound(final ConnectionState stage, final int packetId) {
+  public AbstractPacket<? extends PacketContent> getPacketOutbound(final ConnectionState stage, final int packetId) {
     return switch (stage) {
       case HANDSHAKE -> new HandshakePacket();
       case STATUS -> StatusPackets.getOutbound(packetId).getPacket();
@@ -36,7 +36,7 @@ public final class Protocol {
     };
   }
 
-  public AbstractPacket getPacketOutbound(final ConnectionState state, final Class<? extends PacketContent> packet) {
+  public AbstractPacket<? extends PacketContent> getPacketOutbound(final ConnectionState state, final Class<? extends PacketContent> packet) {
     return switch (state) {
       case STATUS -> StatusPackets.getByMessage(packet).getPacket();
       case LOGIN -> LoginPackets.getByMessage(packet).getPacket();

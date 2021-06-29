@@ -1,6 +1,7 @@
 package com.celeste.internal.protocol.codec;
 
 import com.celeste.internal.controllers.ChannelController;
+import com.celeste.internal.model.protocol.ConnectionState;
 import com.celeste.internal.protocol.utils.Compression;
 import com.celeste.internal.protocol.utils.ProtocolBuffer;
 import com.celeste.library.core.util.Logger;
@@ -30,6 +31,11 @@ public final class MessageReader extends ByteToMessageDecoder {
       if (byteBuf.readableBytes() > length) {
         list.add(byteBuf.readBytes(length));
         return;
+      }
+
+      if (controller.getState() == ConnectionState.HANDSHAKE && byteBuf.readUnsignedByte() == 254) {
+        Logger.getLogger().atInfo().log("TODO: Implement legacy server list ping");
+        context.close();
       }
 
       byteBuf.resetReaderIndex();

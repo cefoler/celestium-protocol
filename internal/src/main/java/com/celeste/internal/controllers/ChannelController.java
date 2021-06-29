@@ -51,7 +51,13 @@ public final class ChannelController extends SimpleChannelInboundHandler<PacketC
    * @param packet PacketContent
    */
   public void dispatch(final PacketContent packet) {
-    channel.writeAndFlush(packet);
+    if (isOpen()) {
+      channel.writeAndFlush(packet);
+    }
+  }
+
+  public boolean isOpen() {
+    return channel != null && channel.isOpen();
   }
 
 }

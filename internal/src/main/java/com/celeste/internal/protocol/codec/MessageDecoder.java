@@ -4,6 +4,7 @@ import com.celeste.internal.controllers.ChannelController;
 import com.celeste.internal.exceptions.protocol.PacketException;
 import com.celeste.internal.packets.AbstractPacket;
 import com.celeste.internal.packets.PacketContent;
+import com.celeste.internal.protocol.utils.PacketFormatter;
 import com.celeste.internal.protocol.utils.ProtocolBuffer;
 import com.celeste.internal.registry.Protocol;
 import com.celeste.library.core.util.Logger;
@@ -31,14 +32,14 @@ public final class MessageDecoder extends ByteToMessageDecoder {
 
     final AbstractPacket<?> packet = Protocol.INSTANCE.getPacketInbound(controller.getState(), packetId);
     if (packet == null) {
-      Logger.getLogger().atSevere().log("A packet with unidentified id has been received: " + packetId);
+      Logger.getLogger().atSevere().log("A packet with unidentified id has been received: " + PacketFormatter.format(packetId));
       return;
     }
 
     final PacketContent content = packet.read(buffer);
     list.add(content);
 
-    Logger.getLogger().atInfo().log("Received packet with ID: " + content.getId());
+    Logger.getLogger().atInfo().log("Received packet with ID: " + PacketFormatter.format(packetId));
   }
 
   @Override
