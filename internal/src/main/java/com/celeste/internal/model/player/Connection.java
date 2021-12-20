@@ -2,8 +2,8 @@ package com.celeste.internal.model.player;
 
 import com.celeste.internal.model.protocol.ProtocolVersion;
 import com.celeste.internal.model.protocol.ConnectionState;
-import com.celeste.minecraft.model.Location;
-import com.celeste.minecraft.model.type.Gamemode;
+import com.celeste.game.model.Location;
+import com.celeste.game.model.type.Gamemode;
 import java.net.InetSocketAddress;
 import java.util.UUID;
 

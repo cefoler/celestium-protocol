@@ -1,8 +1,7 @@
-package com.celeste.internal.controllers;
+package com.celeste.internal.controller;
 
 import com.celeste.internal.model.server.ServerProperties;
 import com.celeste.internal.model.server.ServerSettings;
-import lombok.Getter;
 
 public final record ServerController() {
 

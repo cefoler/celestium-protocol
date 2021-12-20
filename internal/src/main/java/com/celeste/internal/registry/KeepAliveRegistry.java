@@ -1,6 +1,6 @@
 package com.celeste.internal.registry;
 
-import com.celeste.internal.packets.handlers.play.KeepAliveHandler;
+import com.celeste.internal.packets.handler.play.KeepAliveHandler;
 import com.celeste.library.core.model.registry.Registry;
 import com.celeste.library.core.model.registry.impl.LinkedRegistry;
 import com.celeste.library.core.util.Logger;

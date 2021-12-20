@@ -1,4 +1,4 @@
-package com.celeste.minecraft.model.world;
+package com.celeste.game.model.world;
 
 import lombok.Builder;
 import lombok.Data;

@@ -18,11 +18,18 @@ public enum Flags {
   private final int id;
 
   @Nullable
-  public static Flags get(int id) {
+  public static Flags get(final int id) {
     return Arrays.stream(values())
         .filter(flags -> flags.getId() == id)
         .findFirst()
         .orElse(null);
+  }
+
+  public static Flags getOrElse(final int id, final Flags flag) {
+    return Arrays.stream(values())
+        .filter(flags -> flags.getId() == id)
+        .findFirst()
+        .orElse(flag);
   }
 
 }

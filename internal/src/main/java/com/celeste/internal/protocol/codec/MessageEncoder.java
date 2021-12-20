@@ -1,18 +1,15 @@
 package com.celeste.internal.protocol.codec;
 
-import com.celeste.internal.controllers.ChannelController;
-import com.celeste.internal.exceptions.protocol.PacketException;
+import com.celeste.internal.controller.ChannelController;
 import com.celeste.internal.packets.AbstractPacket;
 import com.celeste.internal.packets.PacketContent;
 import com.celeste.internal.protocol.utils.ProtocolBuffer;
 import com.celeste.internal.registry.Protocol;
-import com.celeste.library.core.adapter.impl.jackson.JacksonAdapter;
 import com.celeste.library.core.util.Logger;
 import io.grpc.netty.shaded.io.netty.buffer.ByteBuf;
 import io.grpc.netty.shaded.io.netty.channel.ChannelHandlerContext;
 import io.grpc.netty.shaded.io.netty.handler.codec.MessageToByteEncoder;
 import lombok.AllArgsConstructor;
-import lombok.SneakyThrows;
 
 @AllArgsConstructor
 public final class MessageEncoder extends MessageToByteEncoder<PacketContent> {
@@ -31,9 +28,13 @@ public final class MessageEncoder extends MessageToByteEncoder<PacketContent> {
       return;
     }
 
-    final AbstractPacket packet = Protocol.INSTANCE.getPacketOutbound(controller.getState(), packetContent.getId());
+    final AbstractPacket packet = Protocol.getPacketOutbound(controller.getState(), packetContent.getId());
     if (packet == null) {
       Logger.getLogger().atSevere().log("A packet with unidentified id has been tried to sent. Name: " + packetContent.getClass().getSimpleName());
+      return;
+    }
+
+    if (packet.getOutboundId() == 999999) {
       return;
     }
 

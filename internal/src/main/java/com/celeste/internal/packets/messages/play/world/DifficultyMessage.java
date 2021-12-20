@@ -1,10 +1,9 @@
 package com.celeste.internal.packets.messages.play.world;
 
-import com.celeste.internal.controllers.ServerController;
+import com.celeste.internal.controller.ServerController;
 import com.celeste.internal.packets.PacketContent;
 import com.celeste.internal.registry.type.PlayPackets;
-import com.celeste.minecraft.model.type.Difficulty;
-import lombok.Builder;
+import com.celeste.game.model.type.Difficulty;
 import lombok.Data;
 
 @Data

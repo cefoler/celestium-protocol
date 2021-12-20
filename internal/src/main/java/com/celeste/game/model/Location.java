@@ -1,4 +1,4 @@
-package com.celeste.minecraft.model;
+package com.celeste.game.model;
 
 import java.io.Serializable;
 

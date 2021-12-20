@@ -1,5 +1,7 @@
 package com.celeste.internal.packets;
 
+import com.celeste.internal.annotation.Message;
+
 /**
  * The PacketContent is a interface
  * that helps in the packet organization.
@@ -9,7 +11,12 @@ package com.celeste.internal.packets;
 public interface PacketContent {
 
   default int getId() {
-    return 940682680;
+    final Message message = getClass().getAnnotation(Message.class);
+    if (message == null) {
+      return 999999;
+    }
+
+    return message.id();
   }
 
 }

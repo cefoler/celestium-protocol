@@ -2,11 +2,11 @@ package com.celeste.internal.packets.messages.play;
 
 import com.celeste.internal.packets.PacketContent;
 import com.celeste.internal.registry.type.PlayPackets;
-import com.celeste.minecraft.model.type.Gamemode;
-import com.celeste.minecraft.model.world.World;
+import com.celeste.game.model.type.Gamemode;
+import com.celeste.game.model.world.World;
 import lombok.Data;
 
-import static com.celeste.internal.controllers.ServerController.*;
+import static com.celeste.internal.controller.ServerController.*;
 
 @Data
 public final class JoinMessage implements PacketContent {

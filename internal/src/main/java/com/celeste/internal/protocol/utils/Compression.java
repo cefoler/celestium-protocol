@@ -11,6 +11,7 @@ public final class Compression {
 
   public static byte[] compress(byte[] data) throws IOException {
     final Deflater deflater = new Deflater();
+
     deflater.setInput(data);
     deflater.setLevel(Deflater.BEST_SPEED);
     deflater.finish();
@@ -32,6 +33,7 @@ public final class Compression {
     inflater.setInput(data);
 
     final ByteArrayOutputStream outputStream = new ByteArrayOutputStream(data.length);
+
     final byte[] buffer = new byte[256];
     while (!inflater.finished()) {
       outputStream.write(buffer, 0, inflater.inflate(buffer));

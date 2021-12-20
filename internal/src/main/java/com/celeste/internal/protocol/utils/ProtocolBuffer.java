@@ -1,6 +1,6 @@
 package com.celeste.internal.protocol.utils;
 
-import com.celeste.internal.exceptions.protocol.BufferException;
+import com.celeste.internal.exception.protocol.BufferException;
 import com.google.common.base.Charsets;
 import io.grpc.netty.shaded.io.netty.buffer.ByteBuf;
 import java.util.UUID;
@@ -22,14 +22,17 @@ public final class ProtocolBuffer {
 
     int result = 0;
     byte next;
+
     do {
-      if (totalBytes >= 5) throw new BufferException("VarInt is longer than the allowed 5 bytes");
+      if (totalBytes >= 5) {
+        throw new BufferException("VarInt is longer than the allowed 5 bytes");
+      }
 
       next = byteBuf.readByte();
       result |= (next & 0x7F) << (totalBytes * 7);
 
       totalBytes++;
-    } while((next & 0x80) != 0);
+    } while ((next & 0x80) != 0);
 
     return result;
   }
@@ -44,13 +47,15 @@ public final class ProtocolBuffer {
     long result = 0;
     byte next;
     do {
-      if (totalBytes >= 10) throw new BufferException("VarLong is longer than the allowed 10 bytes");
+      if (totalBytes >= 10) {
+        throw new BufferException("VarLong is longer than the allowed 10 bytes");
+      }
 
       next = byteBuf.readByte();
       result |= (long) (next & 0x7F) << (totalBytes * 7);
 
       totalBytes++;
-    } while((next & 0x80) != 0);
+    } while ((next & 0x80) != 0);
 
     return result;
   }
@@ -97,12 +102,18 @@ public final class ProtocolBuffer {
   }
 
   public boolean isVarInt() {
-    if (byteBuf.readableBytes() > 5) return true;
+    if (byteBuf.readableBytes() > 5) {
+      return true;
+    }
+
     int totalBytes = 0;
 
     byte next;
     do {
-      if (totalBytes > 4) break;
+      if (totalBytes > 4) {
+        break;
+      }
+
       if (byteBuf.readableBytes() <= 0) {
         byteBuf.resetReaderIndex();
         return false;
@@ -142,13 +153,17 @@ public final class ProtocolBuffer {
    */
   public String readString(int input) {
     final int length = readVarInt();
-    if (length >= Short.MAX_VALUE) throw new BufferException("The received string is longer than maximum (" + Short.MAX_VALUE + ")");
+    if (length >= Short.MAX_VALUE) {
+      throw new BufferException("The received string is longer than maximum (" + Short.MAX_VALUE + ")");
+    }
 
     byte[] bytes = new byte[length];
     byteBuf.readBytes(bytes);
 
     final String string = new String(bytes, Charsets.UTF_8);
-    if (string.length() > input) throw new BufferException("The received string is longer than allowed (" + input + ")");
+    if (string.length() > input) {
+      throw new BufferException("The received string is longer than allowed (" + input + ")");
+    }
 
     return string;
   }
@@ -159,7 +174,9 @@ public final class ProtocolBuffer {
    */
   public String readString() {
     final int length = readVarInt();
-    if (length >= Short.MAX_VALUE) throw new BufferException("The received string is longer than maximum (" + Short.MAX_VALUE + ")");
+    if (length >= Short.MAX_VALUE) {
+      throw new BufferException("The received string is longer than maximum (" + Short.MAX_VALUE + ")");
+    }
 
     return new String(byteBuf.readBytes(length).array(), Charsets.UTF_8);
   }
@@ -170,8 +187,7 @@ public final class ProtocolBuffer {
    * @param string String
    */
   public void writeString(final String string) {
-    byte[] bytes = string.getBytes(Charsets.UTF_8);
-
+    final byte[] bytes = string.getBytes(Charsets.UTF_8);
     if (bytes.length > Short.MAX_VALUE) {
       throw new BufferException("String is longer than allowed (" + string.length() + ")");
     }
@@ -186,8 +202,7 @@ public final class ProtocolBuffer {
    * @param string String
    */
   public void writeString(final String string, int input) {
-    byte[] bytes = string.getBytes(Charsets.UTF_8);
-
+    final byte[] bytes = string.getBytes(Charsets.UTF_8);
     if (bytes.length > Short.MAX_VALUE || bytes.length > input) {
       throw new BufferException("String is longer than allowed (" + string.length() + ")");
     }
@@ -201,8 +216,11 @@ public final class ProtocolBuffer {
 
     int result = 0;
     byte next;
+
     for (int i = 0; i < bytes.length; i++) {
-      if (totalBytes >= 5) throw new BufferException("VarInt is longer than the allowed 5 bytes");
+      if (totalBytes >= 5) {
+        throw new BufferException("VarInt is longer than the allowed 5 bytes");
+      }
 
       next = byteBuf.readByte();
       result |= (next & 0x7F) << (totalBytes * 7);

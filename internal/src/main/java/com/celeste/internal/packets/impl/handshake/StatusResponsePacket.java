@@ -1,29 +1,15 @@
 package com.celeste.internal.packets.impl.handshake;
 
+import com.celeste.internal.annotation.Packet;
 import com.celeste.internal.packets.AbstractPacket;
 import com.celeste.internal.packets.messages.status.StatusResponseMessage;
 import com.celeste.internal.protocol.utils.ProtocolBuffer;
-import com.celeste.internal.registry.type.LoginPackets;
-import com.celeste.internal.registry.type.StatusPackets;
 import com.celeste.library.core.adapter.impl.jackson.JacksonAdapter;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import lombok.SneakyThrows;
 
+@Packet(outboundId = 0x00)
 public final class StatusResponsePacket extends AbstractPacket<StatusResponseMessage> {
-
-  public StatusResponsePacket() {
-    super(null, 0x00);
-  }
-
-  @Override
-  public Class<StatusResponseMessage> getMessage() {
-    return StatusResponseMessage.class;
-  }
-
-  @Override
-  public StatusResponseMessage read(ProtocolBuffer buffer) {
-    return null;
-  }
 
   @Override @SneakyThrows
   public void write(final ProtocolBuffer buffer, final StatusResponseMessage packet) {

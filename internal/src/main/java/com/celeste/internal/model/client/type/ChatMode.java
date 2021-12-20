@@ -24,4 +24,11 @@ public enum ChatMode {
         .orElse(null);
   }
 
+  public static ChatMode getOrElse(final int id, final ChatMode mode) {
+    return Arrays.stream(values())
+        .filter(chatMode -> chatMode.getId() == id)
+        .findFirst()
+        .orElse(mode);
+  }
+
 }

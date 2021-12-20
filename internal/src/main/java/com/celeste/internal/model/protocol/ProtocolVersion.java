@@ -26,11 +26,18 @@ public enum ProtocolVersion {
   private final String name;
 
   @Nullable
-  public static ProtocolVersion get(int version) {
+  public static ProtocolVersion get(final int version) {
     return Arrays.stream(values())
         .filter(protocolVersion -> protocolVersion.getVersion() == version)
         .findFirst()
         .orElse(null);
+  }
+
+  public static ProtocolVersion getOrElse(final int version, final ProtocolVersion protocol) {
+    return Arrays.stream(values())
+        .filter(protocolVersion -> protocolVersion.getVersion() == version)
+        .findFirst()
+        .orElse(protocol);
   }
 
 }

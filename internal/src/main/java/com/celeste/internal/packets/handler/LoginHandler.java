@@ -1,14 +1,14 @@
-package com.celeste.internal.packets.handlers;
+package com.celeste.internal.packets.handler;
 
-import com.celeste.internal.controllers.ChannelController;
-import com.celeste.internal.exceptions.protocol.PacketException;
+import com.celeste.internal.controller.ChannelController;
+import com.celeste.internal.exception.protocol.PacketException;
 import com.celeste.internal.model.player.impl.PlayerConnection;
 import com.celeste.internal.model.protocol.ConnectionState;
 import com.celeste.internal.model.protocol.state.LoginState;
 import com.celeste.internal.packets.PacketContent;
 import com.celeste.internal.packets.PacketHandler;
-import com.celeste.internal.packets.handlers.play.KeepAliveHandler;
-import com.celeste.internal.packets.handlers.play.PlayHandler;
+import com.celeste.internal.packets.handler.play.KeepAliveHandler;
+import com.celeste.internal.packets.handler.play.PlayHandler;
 import com.celeste.internal.packets.messages.login.LoginStartMessage;
 import com.celeste.internal.packets.messages.login.LoginSuccessMessage;
 import com.celeste.internal.packets.messages.play.JoinMessage;
@@ -17,8 +17,8 @@ import com.celeste.internal.packets.messages.play.world.DifficultyMessage;
 import com.celeste.internal.registry.ConnectionRegistry;
 import com.celeste.internal.registry.KeepAliveRegistry;
 import com.celeste.library.core.util.Logger;
-import com.celeste.minecraft.model.Location;
-import com.celeste.minecraft.model.type.Gamemode;
+import com.celeste.game.model.Location;
+import com.celeste.game.model.type.Gamemode;
 import com.mojang.authlib.GameProfile;
 import io.grpc.netty.shaded.io.netty.channel.ChannelHandlerContext;
 import java.net.InetSocketAddress;
@@ -47,7 +47,7 @@ public final class LoginHandler extends PacketHandler {
       case START -> {
         System.out.println("LOGIN START");
         final LoginStartMessage handshake = (LoginStartMessage) message;
-        this.username = handshake.getUsername();
+        this.username = handshake.username();
 
         if (getController().isOfflineMode()) {
           Logger.getLogger().atWarning().log("Server is currently at Offline mode. Initiating without Encryption.");
@@ -62,7 +62,7 @@ public final class LoginHandler extends PacketHandler {
         System.out.println("LOGIN SUCCESS");
         // Handle online mode
         if (getController().isOfflineMode()) {
-          this.id = UUID.nameUUIDFromBytes(("CelestiumPlayer=" + username).getBytes(StandardCharsets.UTF_8));
+          this.id = UUID.nameUUIDFromBytes(("celestium-player=" + username).getBytes(StandardCharsets.UTF_8));
         }
 
         final PlayerConnection playerConnection = PlayerConnection.builder()
@@ -80,6 +80,7 @@ public final class LoginHandler extends PacketHandler {
 
         getController().setState(ConnectionState.PLAY);
         getController().setHandler(new PlayHandler(getController()));
+
         KeepAliveRegistry.INSTANCE.register(id, new KeepAliveHandler(getController()));
 
         dispatch(

@@ -9,16 +9,16 @@ public final class Bootstrapper {
 
   private final ServerBootstrapper server;
 
-  public Bootstrapper() {
+  private Bootstrapper() {
     this.server = new ServerBootstrapper();
     start();
   }
 
-  public static void main(String[] args) {
+  public static void main(final String[] args) {
     new Bootstrapper();
   }
 
-  public void start() {
+  private void start() {
     server.init(new ServerAddress("localhost", 25565));
   }
 

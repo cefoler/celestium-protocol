@@ -19,7 +19,7 @@ public enum NextState {
   private final int id;
 
   @Nullable
-  public static NextState get(Integer id) {
+  public static NextState get(final Integer id) {
     return Arrays.stream(values())
         .filter(nextState -> nextState.getId() == id)
         .findFirst()

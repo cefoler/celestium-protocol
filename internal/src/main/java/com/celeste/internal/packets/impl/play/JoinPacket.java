@@ -1,28 +1,15 @@
 package com.celeste.internal.packets.impl.play;
 
+import com.celeste.internal.annotation.Packet;
 import com.celeste.internal.packets.AbstractPacket;
 import com.celeste.internal.packets.messages.play.JoinMessage;
 import com.celeste.internal.protocol.utils.ProtocolBuffer;
-import com.celeste.internal.registry.type.PlayPackets;
 
+@Packet(outboundId = 0x26)
 public final class JoinPacket extends AbstractPacket<JoinMessage> {
 
-  public JoinPacket() {
-    super(null, PlayPackets.JOIN.getOutboundId());
-  }
-
   @Override
-  public Class<JoinMessage> getMessage() {
-    return JoinMessage.class;
-  }
-
-  @Override
-  public JoinMessage read(ProtocolBuffer buffer) {
-    return null;
-  }
-
-  @Override
-  public void write(ProtocolBuffer buffer, JoinMessage packet) {
+  public void write(final ProtocolBuffer buffer, final JoinMessage packet) {
     buffer.writeInt(packet.getEntityId());
     buffer.getByteBuf().writeBoolean(packet.isHardcore());
     buffer.getByteBuf().writeByte(packet.getGamemode().getData());

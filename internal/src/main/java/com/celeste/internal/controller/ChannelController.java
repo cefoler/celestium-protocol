@@ -1,10 +1,10 @@
-package com.celeste.internal.controllers;
+package com.celeste.internal.controller;
 
 import com.celeste.internal.model.protocol.ConnectionState;
 import com.celeste.internal.model.protocol.ProtocolVersion;
 import com.celeste.internal.packets.PacketContent;
 import com.celeste.internal.packets.PacketHandler;
-import com.celeste.internal.packets.handlers.HandshakeHandler;
+import com.celeste.internal.packets.handler.HandshakeHandler;
 import io.grpc.netty.shaded.io.netty.channel.Channel;
 import io.grpc.netty.shaded.io.netty.channel.ChannelHandlerContext;
 import io.grpc.netty.shaded.io.netty.channel.SimpleChannelInboundHandler;
@@ -15,17 +15,17 @@ import lombok.Setter;
 @Setter
 public final class ChannelController extends SimpleChannelInboundHandler<PacketContent> {
 
-  private Channel channel;
-
+  private final Channel channel;
   private ConnectionState state;
 
+  private PacketHandler handler;
+
   private ProtocolVersion protocolVersion;
-  private long creationTime;
+  private final long creationTime;
+
   private boolean offlineMode;
 
   private boolean compression;
-
-  private PacketHandler handler;
 
   public ChannelController(final Channel channel) {
     this.channel = channel;
@@ -33,6 +33,7 @@ public final class ChannelController extends SimpleChannelInboundHandler<PacketC
     this.handler = new HandshakeHandler(this);
     this.offlineMode = false;
     this.compression = false;
+    this.creationTime = System.currentTimeMillis();
   }
 
   /**

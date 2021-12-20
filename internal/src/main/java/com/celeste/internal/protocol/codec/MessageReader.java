@@ -1,11 +1,10 @@
 package com.celeste.internal.protocol.codec;
 
-import com.celeste.internal.controllers.ChannelController;
+import com.celeste.internal.controller.ChannelController;
 import com.celeste.internal.model.protocol.ConnectionState;
 import com.celeste.internal.protocol.utils.Compression;
 import com.celeste.internal.protocol.utils.ProtocolBuffer;
 import com.celeste.library.core.util.Logger;
-import com.google.common.flogger.FluentLogger;
 import io.grpc.netty.shaded.io.netty.buffer.ByteBuf;
 import io.grpc.netty.shaded.io.netty.channel.ChannelHandlerContext;
 import io.grpc.netty.shaded.io.netty.handler.codec.ByteToMessageDecoder;
@@ -22,11 +21,11 @@ public final class MessageReader extends ByteToMessageDecoder {
     byteBuf.markReaderIndex();
 
     final ProtocolBuffer buffer = new ProtocolBuffer(byteBuf);
-    if (!controller.isCompression()) {
-      if (!buffer.isVarInt()) {
-        return;
-      }
+    if (!buffer.isVarInt()) {
+      return;
+    }
 
+    if (!controller.isCompression()) {
       final int length = buffer.readVarInt();
       if (byteBuf.readableBytes() > length) {
         list.add(byteBuf.readBytes(length));
@@ -43,7 +42,7 @@ public final class MessageReader extends ByteToMessageDecoder {
     }
 
     final byte[] data = Compression.decompress(byteBuf.array());
-    final int decompressedId = buffer.readVarInt(data);
+    final int length = buffer.readVarInt(data);
     // TODO: Handle decompression and flush with decompressed information for the Decoder
   }
 

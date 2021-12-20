@@ -1,5 +1,6 @@
 package com.celeste.internal.packets.impl.handshake;
 
+import com.celeste.internal.annotation.Packet;
 import com.celeste.internal.model.protocol.state.NextState;
 import com.celeste.internal.packets.AbstractPacket;
 import com.celeste.internal.packets.messages.HandshakeMessage;
@@ -14,30 +15,17 @@ import lombok.Getter;
  * <p>The NextState can be LOGIN or STATUS</p>
  */
 @Getter
+@Packet(inboundId = 0x00)
 public final class HandshakePacket extends AbstractPacket<HandshakeMessage> {
 
-  public HandshakePacket() {
-    super(0x00, null);
-  }
-
   @Override
-  public Class<HandshakeMessage> getMessage() {
-    return HandshakeMessage.class;
-  }
-
-  @Override
-  public HandshakeMessage read(ProtocolBuffer buffer) {
+  public HandshakeMessage read(final ProtocolBuffer buffer) {
     return HandshakeMessage.builder()
         .protocolVersion(buffer.readVarInt())
         .address(buffer.readString(255))
         .port(buffer.getByteBuf().readUnsignedShort())
         .state(NextState.get(buffer.readVarInt()))
         .build();
-  }
-
-  @Override
-  public void write(ProtocolBuffer buffer, HandshakeMessage packet) {
-    // Handshake packet doesn't need to be written
   }
 
 }

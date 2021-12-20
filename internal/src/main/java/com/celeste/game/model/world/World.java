@@ -1,11 +1,9 @@
-package com.celeste.minecraft.model.world;
+package com.celeste.game.model.world;
 
-import com.celeste.minecraft.model.Location;
-import com.celeste.minecraft.model.type.Difficulty;
-import com.celeste.minecraft.model.type.Dimension;
-import lombok.Builder;
+import com.celeste.game.model.Location;
+import com.celeste.game.model.type.Difficulty;
+import com.celeste.game.model.type.Dimension;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.Random;

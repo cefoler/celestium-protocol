@@ -1,14 +1,12 @@
-package com.celeste.internal.packets.handlers;
+package com.celeste.internal.packets.handler;
 
-import com.celeste.internal.controllers.ChannelController;
-import com.celeste.internal.controllers.ServerController;
-import com.celeste.internal.exceptions.protocol.PacketException;
+import com.celeste.internal.controller.ChannelController;
+import com.celeste.internal.controller.ServerController;
 import com.celeste.internal.model.server.ServerSettings;
 import com.celeste.internal.model.protocol.state.StatusState;
 import com.celeste.internal.packets.PacketContent;
 import com.celeste.internal.packets.PacketHandler;
 import com.celeste.internal.packets.messages.status.StatusResponseMessage;
-import com.celeste.library.core.adapter.impl.jackson.JacksonAdapter;
 import com.celeste.library.core.util.Logger;
 import io.grpc.netty.shaded.io.netty.channel.ChannelHandlerContext;
 import lombok.Getter;

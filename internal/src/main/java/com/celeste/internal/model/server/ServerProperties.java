@@ -1,7 +1,7 @@
 package com.celeste.internal.model.server;
 
-import com.celeste.minecraft.model.type.Difficulty;
-import com.celeste.minecraft.model.type.Gamemode;
+import com.celeste.game.model.type.Difficulty;
+import com.celeste.game.model.type.Gamemode;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

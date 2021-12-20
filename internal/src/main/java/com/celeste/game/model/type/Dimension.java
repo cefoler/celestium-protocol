@@ -1,4 +1,4 @@
-package com.celeste.minecraft.model.type;
+package com.celeste.game.model.type;
 
 import java.util.Arrays;
 
