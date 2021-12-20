@@ -1,5 +1,6 @@
 package com.celeste.internal.packets.messages.play;
 
+import com.celeste.internal.annotation.Message;
 import com.celeste.internal.packets.PacketContent;
 import com.celeste.internal.registry.type.PlayPackets;
 import com.celeste.game.model.type.Gamemode;
@@ -9,6 +10,7 @@ import lombok.Data;
 import static com.celeste.internal.controller.ServerController.*;
 
 @Data
+@Message(id = 0x26)
 public final class JoinMessage implements PacketContent {
 
   private final int entityId;
@@ -20,11 +22,6 @@ public final class JoinMessage implements PacketContent {
 
   private final boolean debug;
   private final boolean respawnScreen;
-
-  @Override
-  public int getId() {
-    return PlayPackets.JOIN.getOutboundId();
-  }
 
   public JoinMessage() {
     this.entityId = (int) (LAST_ENTITY_ID + 1);

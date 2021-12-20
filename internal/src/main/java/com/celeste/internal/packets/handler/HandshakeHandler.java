@@ -22,7 +22,7 @@ public final class HandshakeHandler extends PacketHandler {
 
     getController().setProtocolVersion(ServerController.SETTINGS.getProtocol());
 
-    switch (handshake.getState()) {
+    switch (handshake.state()) {
       case STATUS -> {
         System.out.println("STATUS");
         getController().setHandler(new StatusHandler(getController()));

@@ -26,7 +26,7 @@ public final class PlayHandler extends PacketHandler {
       throw new PacketException();
     }
 
-    switch(message.getId()) {
+    switch (message.getId()) {
       // TODO: Handle each packets ID from Play that is inbound
     }
   }

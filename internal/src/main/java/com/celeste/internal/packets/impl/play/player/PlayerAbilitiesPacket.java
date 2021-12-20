@@ -11,18 +11,18 @@ public final class PlayerAbilitiesPacket extends AbstractPacket<PlayerAbilitiesM
 
   @Override
   public PlayerAbilitiesMessage read(final ProtocolBuffer buffer) {
-    return PlayerAbilitiesMessage.builder()
-        .flags(Flags.get(buffer.getByteBuf().readByte()))
-        .flyingSpeed(buffer.getByteBuf().readFloat())
-        .viewModifier(buffer.getByteBuf().readFloat())
-        .build();
+    return new PlayerAbilitiesMessage(
+        Flags.get(buffer.getByteBuf().readByte()),
+        buffer.getByteBuf().readFloat(),
+        buffer.getByteBuf().readFloat()
+    );
   }
 
   @Override
   public void write(final ProtocolBuffer buffer, final PlayerAbilitiesMessage packet) {
-    buffer.getByteBuf().writeByte(packet.getFlags().getId());
-    buffer.getByteBuf().writeFloat(packet.getFlyingSpeed());
-    buffer.getByteBuf().writeFloat(packet.getViewModifier());
+    buffer.getByteBuf().writeByte(packet.flags().getId());
+    buffer.getByteBuf().writeFloat(packet.flyingSpeed());
+    buffer.getByteBuf().writeFloat(packet.viewModifier());
   }
 
 }

@@ -1,30 +1,14 @@
 package com.celeste.internal.packets.messages.status;
 
+import com.celeste.internal.annotation.Message;
 import com.celeste.internal.packets.PacketContent;
 import com.celeste.internal.packets.entity.PlayerSimpleEntity;
-import com.celeste.internal.registry.type.StatusPackets;
-import lombok.Builder;
-import lombok.Data;
 
 import java.util.List;
 
-@Data
-@Builder
-public final class StatusResponseMessage implements PacketContent {
-
-  private final String versionName;
-  private final int protocol;
-
-  private final int maximumPlayers;
-  private final int currentPlayers;
-  private final List<PlayerSimpleEntity> onlinePlayers;
-
-  private final String description;
-  private final String icon;
-
-  @Override
-  public int getId() {
-    return 0x00;
-  }
+@Message(id = 0x00)
+public record StatusResponseMessage(String versionName, int protocol, int maximumPlayers, int currentPlayers,
+                                    List<PlayerSimpleEntity> onlinePlayers,
+                                    String description, String icon) implements PacketContent {
 
 }

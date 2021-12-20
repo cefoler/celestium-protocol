@@ -1,29 +1,14 @@
 package com.celeste.internal.packets.messages.play.player;
 
+import com.celeste.internal.annotation.Message;
 import com.celeste.internal.model.client.type.Flags;
 import com.celeste.internal.packets.PacketContent;
-import com.celeste.internal.registry.type.PlayPackets;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
 
-@Data
-@Builder
-@AllArgsConstructor
-public final class PlayerAbilitiesMessage implements PacketContent {
-
-  private final Flags flags;
-  private final float flyingSpeed, viewModifier;
+@Message(id = 0x32)
+public record PlayerAbilitiesMessage(Flags flags, float flyingSpeed, float viewModifier) implements PacketContent {
 
   public PlayerAbilitiesMessage() {
-    this.flags = Flags.ALLOW_FLYING;
-    this.flyingSpeed = (float) 0.05;
-    this.viewModifier = (float) 0.1;
-  }
-
-  @Override
-  public int getId() {
-    return PlayPackets.PLAYER_ABILITIES.getOutboundId();
+    this(Flags.ALLOW_FLYING, 0.05F, 0.1F);
   }
 
 }

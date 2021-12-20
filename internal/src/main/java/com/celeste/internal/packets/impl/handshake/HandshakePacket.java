@@ -20,12 +20,12 @@ public final class HandshakePacket extends AbstractPacket<HandshakeMessage> {
 
   @Override
   public HandshakeMessage read(final ProtocolBuffer buffer) {
-    return HandshakeMessage.builder()
-        .protocolVersion(buffer.readVarInt())
-        .address(buffer.readString(255))
-        .port(buffer.getByteBuf().readUnsignedShort())
-        .state(NextState.get(buffer.readVarInt()))
-        .build();
+    return new HandshakeMessage(
+        buffer.readVarInt(),
+        buffer.readString(255),
+        buffer.getByteBuf().readUnsignedShort(),
+        NextState.get(buffer.readVarInt())
+    );
   }
 
 }

@@ -30,15 +30,15 @@ public final class StatusHandler extends PacketHandler {
       case REQUEST -> {
         System.out.println("STATUS REQUEST");
         final ServerSettings settings = ServerController.SETTINGS;
-        final StatusResponseMessage responseMessage = StatusResponseMessage.builder()
-            .versionName(settings.getProtocol().getName())
-            .protocol(settings.getProtocol().getVersion())
-            .currentPlayers(settings.getCurrentPlayers())
-            .maximumPlayers(settings.getMaximumPlayers())
-            .description(settings.getDescription())
-            .onlinePlayers(settings.getOnlinePlayers())
-            .icon(settings.getIcon())
-            .build();
+        final StatusResponseMessage responseMessage = new StatusResponseMessage(
+            settings.getProtocol().getName(),
+            settings.getProtocol().getVersion(),
+            settings.getMaximumPlayers(),
+            settings.getCurrentPlayers(),
+            settings.getOnlinePlayers(),
+            settings.getDescription(),
+            settings.getIcon()
+        );
 
         dispatch(responseMessage);
         setStatusState(StatusState.PING);
