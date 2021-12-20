@@ -13,7 +13,7 @@ public final class KeepAliveHandler extends PacketHandler {
 
   public KeepAliveHandler(final ChannelController controller) {
     super(controller);
-
+    // TODO: Work more on this one handler, too basic
     ServerBootstrapper.SCHEDULED.scheduleAtFixedRate(() -> dispatch(new KeepAliveMessage(1)), 0, 30, TimeUnit.SECONDS);
   }
 

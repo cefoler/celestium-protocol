@@ -9,8 +9,8 @@ import com.celeste.internal.protocol.utils.ProtocolBuffer;
 public final class HeldSlotChangePacket extends AbstractPacket<HeldSlotChangeMessage> {
 
   @Override
-  public void write(ProtocolBuffer buffer, HeldSlotChangeMessage packet) {
-    buffer.getByteBuf().writeByte(packet.getSlot());
+  public void write(final ProtocolBuffer buffer, final HeldSlotChangeMessage packet) {
+    buffer.getByteBuf().writeByte(packet.slot());
   }
 
 }

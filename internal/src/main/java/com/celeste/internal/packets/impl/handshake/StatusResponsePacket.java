@@ -17,21 +17,21 @@ public final class StatusResponsePacket extends AbstractPacket<StatusResponseMes
     final ObjectNode main = adapter.createNode();
 
     final ObjectNode version = adapter.createNode()
-        .put("name", packet.getVersionName())
-        .put("protocol", packet.getProtocol());
+        .put("name", packet.versionName())
+        .put("protocol", packet.protocol());
 
     final ObjectNode players = adapter.createNode()
-        .put("max", packet.getMaximumPlayers())
-        .put("online", packet.getCurrentPlayers())
-        .put("sample", adapter.serialize(packet.getOnlinePlayers()));
+        .put("max", packet.maximumPlayers())
+        .put("online", packet.currentPlayers())
+        .put("sample", adapter.serialize(packet.onlinePlayers()));
 
     final ObjectNode description = adapter.createNode()
-        .put("description", packet.getDescription());
+        .put("description", packet.description());
 
     main.set("version", version);
     main.set("players", players);
     main.set("description", description);
-    main.put("favicon", packet.getIcon());
+    main.put("favicon", packet.icon());
 
     buffer.writeString(main.toPrettyString());
   }

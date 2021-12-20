@@ -9,7 +9,7 @@ import com.celeste.internal.protocol.utils.ProtocolBuffer;
 public final class KeepAlivePacket extends AbstractPacket<KeepAliveMessage> {
 
   @Override
-  public void write(ProtocolBuffer buffer, KeepAliveMessage packet) {
+  public void write(final ProtocolBuffer buffer, final KeepAliveMessage packet) {
     buffer.writeVarLong(packet.getId());
   }
 

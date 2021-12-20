@@ -20,7 +20,7 @@ public final class HandshakeHandler extends PacketHandler {
     System.out.println("HANDSHAKE HANDLER");
     final HandshakeMessage handshake = (HandshakeMessage) message;
 
-    getController().setProtocolVersion(ServerController.SETTINGS.getProtocol());
+    getController().setProtocolVersion(ServerController.SETTINGS.protocol());
 
     switch (handshake.state()) {
       case STATUS -> {
@@ -33,7 +33,7 @@ public final class HandshakeHandler extends PacketHandler {
         getController().setHandler(new LoginHandler(getController()));
         getController().setState(ConnectionState.LOGIN);
       }
-      default -> throw new PacketException("The packet received has a invalid next state.");
+      default -> throw new PacketException("The packet received has a invalid next state. ID: " + message.getId());
     }
   }
 

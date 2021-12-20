@@ -1,25 +1,12 @@
 package com.celeste.game.model.world;
 
-import lombok.Builder;
-import lombok.Data;
-
 import java.io.Serializable;
 
-@Data
-public final class WorldBorder implements Serializable {
-
-  private double x, y;
-  private double diameter;
-
-  private long speed;
-  private int warningBlocks;
+public record WorldBorder(double x, double y, double diameter,
+                          long speed, int warningBlocks) implements Serializable {
 
   public WorldBorder() {
-    this.x = 0;
-    this.y = 0;
-    this.diameter = 100;
-    this.speed = 0;
-    this.warningBlocks = 5;
+    this(0, 0, 100, 0, 5);
   }
 
 }

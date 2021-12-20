@@ -9,13 +9,13 @@ import com.celeste.internal.protocol.utils.ProtocolBuffer;
 public final class StatusPingPacket extends AbstractPacket<StatusPingMessage> {
 
   @Override
-  public StatusPingMessage read(ProtocolBuffer buffer) {
+  public StatusPingMessage read(final ProtocolBuffer buffer) {
     return new StatusPingMessage(buffer.getByteBuf().readLong());
   }
 
   @Override
-  public void write(ProtocolBuffer buffer, StatusPingMessage packet) {
-    buffer.getByteBuf().writeLong(packet.getNumber());
+  public void write(final ProtocolBuffer buffer, final StatusPingMessage packet) {
+    buffer.getByteBuf().writeLong(packet.number());
   }
 
 }

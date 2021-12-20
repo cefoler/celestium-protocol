@@ -38,13 +38,13 @@ public final class ChannelController extends SimpleChannelInboundHandler<PacketC
 
   /**
    * Reads a PacketContent received to this channel
-   * @param channelHandlerContext ChannelHandlerContext
+   * @param context ChannelHandlerContext
    * @param packetContent PacketContent
    */
   @Override
-  protected void channelRead0(final ChannelHandlerContext channelHandlerContext, final PacketContent packetContent) {
+  protected void channelRead0(final ChannelHandlerContext context, final PacketContent packetContent) {
     // The handler is changed event after event so it can fit properly to the content
-    handler.read(channelHandlerContext, packetContent);
+    handler.read(context, packetContent);
   }
 
   /**

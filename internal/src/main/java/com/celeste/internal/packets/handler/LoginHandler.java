@@ -58,6 +58,12 @@ public final class LoginHandler extends PacketHandler {
 
         setLoginState(LoginState.ENCRYPTION_REQUEST);
       }
+      case ENCRYPTION_REQUEST -> {
+        // TODO: Encryption request
+      }
+      case ENCRYPTION_RESPONSE -> {
+        // TODO: Encryption response
+      }
       case SUCCESS -> {
         System.out.println("LOGIN SUCCESS");
         // Handle online mode
@@ -90,7 +96,7 @@ public final class LoginHandler extends PacketHandler {
             new PlayerAbilitiesMessage()
         );
       }
-      default -> throw new PacketException("A invalid LoginState has been received.");
+      default -> throw new PacketException("A invalid LoginState has been received. ID: " + message.getId());
     }
   }
 

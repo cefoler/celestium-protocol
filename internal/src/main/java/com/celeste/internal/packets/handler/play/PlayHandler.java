@@ -21,9 +21,9 @@ public final class PlayHandler extends PacketHandler {
 
   @Override
   public void read(final ChannelHandlerContext context, final PacketContent message) {
-    final AbstractPacket<?> packet = Protocol.getPacketInbound(ConnectionState.PLAY, message.getId());
+    final AbstractPacket<?> packet = Protocol.getPacketInbound(getController().getState(), message.getId());
     if (packet == null) {
-      throw new PacketException();
+      throw new PacketException("A packet with the ID " + message.getId() + " wasn't identified in PlayHandler.");
     }
 
     switch (message.getId()) {

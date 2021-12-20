@@ -3,47 +3,27 @@ package com.celeste.internal.model.server;
 import com.celeste.internal.model.protocol.ProtocolVersion;
 import com.celeste.internal.packets.entity.PlayerSimpleEntity;
 import com.celeste.game.model.world.World;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
-@Builder
-@AllArgsConstructor
-public final class ServerSettings implements Serializable {
-
-  private final String versionName;
-  private final ProtocolVersion protocol;
-
-  private final int maximumPlayers;
-  private final int currentPlayers;
-  private final List<PlayerSimpleEntity> onlinePlayers;
-
-  private final String description;
-  private final String icon;
-
-  private final List<World> worlds;
+public record ServerSettings(String versionName, ProtocolVersion protocol, int maximumPlayers,
+                             int currentPlayers, List<PlayerSimpleEntity> onlinePlayers, String description,
+                             String icon, List<World> worlds) implements Serializable {
 
   public ServerSettings() {
-    this.versionName = "1.8.9";
-    this.protocol = ProtocolVersion.EIGHT;
-    this.maximumPlayers = 100;
-    this.currentPlayers = 0;
-    this.onlinePlayers = new ArrayList<>();
-    this.description = "default";
-    this.icon = "";
-    this.worlds = new ArrayList<>();
+    this("1.8.9", ProtocolVersion.EIGHT, 100,
+        0, new ArrayList<>(), "default", "",
+        new ArrayList<>()
+    );
 
     worlds.add(new World());
   }
 
   public World getDefaultWorld() {
     return worlds.stream()
-        .filter(World::isDefault)
+        .filter(World::defaultWorld)
         .findFirst()
         .orElseThrow(() -> new IllegalStateException("No default worlds were created at the server."));
   }

@@ -12,7 +12,6 @@ import io.grpc.netty.shaded.io.netty.channel.epoll.EpollServerSocketChannel;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ThreadFactory;
 
@@ -37,7 +36,7 @@ public final class ServerBootstrapper {
   private boolean started;
 
   @SneakyThrows
-  public CompletableFuture<Void> init(final ServerAddress serverAddress) {
+  public CompletableFuture<Void> initialize(final ServerAddress serverAddress) {
     return CompletableFuture.runAsync(() -> {
       this.startTime = System.currentTimeMillis();
       this.started = false;

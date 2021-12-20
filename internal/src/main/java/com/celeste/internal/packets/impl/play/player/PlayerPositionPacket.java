@@ -9,17 +9,17 @@ import com.celeste.internal.protocol.utils.ProtocolBuffer;
 public final class PlayerPositionPacket extends AbstractPacket<PlayerPositionMessage> {
 
   @Override
-  public void write(ProtocolBuffer buffer, PlayerPositionMessage packet) {
-    buffer.getByteBuf().writeDouble(packet.getX());
-    buffer.getByteBuf().writeDouble(packet.getY());
-    buffer.getByteBuf().writeDouble(packet.getZ());
+  public void write(final ProtocolBuffer buffer, final PlayerPositionMessage packet) {
+    buffer.getByteBuf().writeDouble(packet.x());
+    buffer.getByteBuf().writeDouble(packet.y());
+    buffer.getByteBuf().writeDouble(packet.z());
 
-    buffer.getByteBuf().writeFloat(packet.getYaw());
-    buffer.getByteBuf().writeFloat(packet.getPitch());
+    buffer.getByteBuf().writeFloat(packet.yaw());
+    buffer.getByteBuf().writeFloat(packet.pitch());
 
-    buffer.getByteBuf().writeByte(packet.getFlag());
-    buffer.writeVarInt(packet.getTeleportId());
-    buffer.getByteBuf().writeBoolean(packet.isDismount());
+    buffer.getByteBuf().writeByte(packet.flag());
+    buffer.writeVarInt(packet.teleportId());
+    buffer.getByteBuf().writeBoolean(packet.dismount());
   }
 
 }

@@ -31,13 +31,13 @@ public final class StatusHandler extends PacketHandler {
         System.out.println("STATUS REQUEST");
         final ServerSettings settings = ServerController.SETTINGS;
         final StatusResponseMessage responseMessage = new StatusResponseMessage(
-            settings.getProtocol().getName(),
-            settings.getProtocol().getVersion(),
-            settings.getMaximumPlayers(),
-            settings.getCurrentPlayers(),
-            settings.getOnlinePlayers(),
-            settings.getDescription(),
-            settings.getIcon()
+            settings.protocol().getName(),
+            settings.protocol().getVersion(),
+            settings.maximumPlayers(),
+            settings.currentPlayers(),
+            settings.onlinePlayers(),
+            settings.description(),
+            settings.icon()
         );
 
         dispatch(responseMessage);
@@ -48,7 +48,7 @@ public final class StatusHandler extends PacketHandler {
         dispatch(message);
         setStatusState(StatusState.PONG);
       }
-      default -> Logger.getLogger().atSevere().log("The packet received has a invalid status state.");
+      default -> Logger.getLogger().atSevere().log("The packet received has a invalid status state. ID: " + message.getId());
     }
   }
 

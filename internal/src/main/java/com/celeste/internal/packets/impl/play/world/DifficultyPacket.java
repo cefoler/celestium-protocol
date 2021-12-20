@@ -9,9 +9,9 @@ import com.celeste.internal.protocol.utils.ProtocolBuffer;
 public final class DifficultyPacket extends AbstractPacket<DifficultyMessage> {
 
   @Override
-  public void write(ProtocolBuffer buffer, DifficultyMessage packet) {
-    buffer.getByteBuf().writeByte(packet.getDifficulty().getId());
-    buffer.getByteBuf().writeBoolean(packet.isLocked());
+  public void write(final ProtocolBuffer buffer, final DifficultyMessage packet) {
+    buffer.getByteBuf().writeByte(packet.difficulty().getId());
+    buffer.getByteBuf().writeBoolean(packet.locked());
   }
 
 }
