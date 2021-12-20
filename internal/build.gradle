@@ -1,35 +1,39 @@
 plugins {
-    id 'com.google.protobuf' version '0.8.15'
+    id 'com.google.protobuf' version '0.8.18'
 }
-
-def grpcVersion = '1.38.1'
-def protobufVersion = '3.12.0'
 
 repositories {
     maven { url 'https://libraries.minecraft.net/' }
 }
 
+def protobufVersion = '3.12.0'
+
 dependencies {
+    def grpcVersion = '1.43.0'
+    def floggerVersion = '0.7.3'
+
     implementation "io.grpc:grpc-netty-shaded:${grpcVersion}"
     implementation "io.grpc:grpc-protobuf:${grpcVersion}"
     implementation "io.grpc:grpc-stub:${grpcVersion}"
 
-    implementation 'com.google.flogger:flogger:0.6'
-    implementation 'com.google.flogger:flogger-system-backend:0.6'
+    implementation "com.google.flogger:flogger:${floggerVersion}"
+    implementation "com.google.flogger:flogger-system-backend:${floggerVersion}"
 
     compileOnly 'org.apache.tomcat:annotations-api:6.0.53'
 
-    implementation 'com.github.celesteoficial.java-library:core:3.2.0'
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.3'
+    implementation 'com.github.celesteoficial.java-library:core:3.3.5'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.0'
 
-    implementation 'com.mojang:authlib:1.5.21'
+    implementation 'com.mojang:authlib:1.5.25'
 }
 
 sourceSets {
     main {
         java {
-            srcDirs 'build/generated/source/proto/main/grpc'
-            srcDirs 'build/generated/source/proto/main/java'
+            def path = "build/generated/source/proto/main"
+
+            srcDirs "${path}/grpc"
+            srcDirs "${path}/java"
         }
     }
 }
@@ -38,18 +42,10 @@ protobuf {
     protoc {
         artifact = "com.google.protobuf:protoc:${protobufVersion}"
     }
+
     plugins {
         grpc {
-            artifact = 'io.grpc:protoc-gen-grpc-java:1.37.0'
+            artifact = 'io.grpc:protoc-gen-grpc-java:1.43.0'
         }
     }
-    generateProtoTasks {
-        all()*.plugins {
-            grpc {}
-        }
-    }
-}
-
-test {
-    useJUnitPlatform()
 }

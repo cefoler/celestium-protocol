@@ -1,3 +1,4 @@
-rootProject.name = 'celestium-grpc'
+rootProject.name = 'celestium'
+
 include 'internal'
 

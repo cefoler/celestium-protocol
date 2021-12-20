@@ -9,17 +9,14 @@ allprojects {
         maven { url 'https://jitpack.io' }
     }
 
-    def lombokVersion = '1.18.20'
-    def jetbrainsVersion = '21.0.1'
-
     dependencies {
-        implementation 'com.google.guava:guava:30.1.1-jre'
+        def lombok = 'org.projectlombok:lombok:1.18.22'
+        def annotations = 'org.jetbrains:annotations:22.0.0'
 
-        compileOnly "org.projectlombok:lombok:${lombokVersion}"
-        annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+        implementation 'com.google.guava:guava:31.0.1-jre'
 
-        compileOnly "org.jetbrains:annotations:${jetbrainsVersion}"
-        annotationProcessor "org.jetbrains:annotations:${jetbrainsVersion}"
+        compileOnly lombok, annotations
+        annotationProcessor lombok, annotations
     }
 
     jar {
