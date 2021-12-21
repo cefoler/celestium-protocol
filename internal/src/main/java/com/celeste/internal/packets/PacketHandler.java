@@ -27,14 +27,6 @@ public abstract class PacketHandler {
   public abstract void read(final ChannelHandlerContext context, final PacketContent message);
 
   /**
-   * Dispatchs a {@link PacketContent} into the {@link ChannelController}
-   * @param packet PacketContent
-   */
-  public void dispatch(final PacketContent packet) {
-    controller.dispatch(packet);
-  }
-
-  /**
    * Dispatchs multiple {@link PacketContent} into the {@link ChannelController}
    * @param packets PacketContent
    */

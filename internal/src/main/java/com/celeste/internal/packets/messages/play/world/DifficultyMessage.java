@@ -9,7 +9,7 @@ import com.celeste.game.model.type.Difficulty;
 public record DifficultyMessage(Difficulty difficulty, boolean locked) implements PacketContent {
 
   public DifficultyMessage() {
-    this(ServerController.PROPERTIES.getDifficulty(), false);
+    this(ServerController.PROPERTIES.difficulty(), false);
   }
 
 }

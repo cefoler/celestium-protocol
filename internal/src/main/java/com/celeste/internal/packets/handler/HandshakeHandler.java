@@ -4,6 +4,7 @@ import com.celeste.internal.controller.ChannelController;
 import com.celeste.internal.controller.ServerController;
 import com.celeste.internal.exception.protocol.PacketException;
 import com.celeste.internal.model.protocol.ConnectionState;
+import com.celeste.internal.model.protocol.ProtocolVersion;
 import com.celeste.internal.packets.PacketContent;
 import com.celeste.internal.packets.PacketHandler;
 import com.celeste.internal.packets.messages.HandshakeMessage;
@@ -20,7 +21,7 @@ public final class HandshakeHandler extends PacketHandler {
     System.out.println("HANDSHAKE HANDLER");
     final HandshakeMessage handshake = (HandshakeMessage) message;
 
-    getController().setProtocolVersion(ServerController.SETTINGS.protocol());
+    getController().setProtocolVersion(ProtocolVersion.get(handshake.protocolVersion()));
 
     switch (handshake.state()) {
       case STATUS -> {

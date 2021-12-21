@@ -11,6 +11,7 @@ import com.celeste.internal.annotation.Message;
 public interface PacketContent {
 
   default int getId() {
+    // TODO: arrumar isso no futuro PELO AMOR DE DEUS!
     final Message message = getClass().getAnnotation(Message.class);
     if (message == null) {
       return 999999;

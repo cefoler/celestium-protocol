@@ -22,6 +22,7 @@ public final class MessageReader extends ByteToMessageDecoder {
 
     final ProtocolBuffer buffer = new ProtocolBuffer(byteBuf);
     if (!buffer.isVarInt()) {
+      // TODO: Generate exception
       return;
     }
 

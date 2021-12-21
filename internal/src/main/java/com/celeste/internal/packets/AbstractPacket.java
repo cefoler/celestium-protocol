@@ -3,6 +3,7 @@ package com.celeste.internal.packets;
 import com.celeste.internal.annotation.Packet;
 import com.celeste.internal.model.protocol.ProtocolDirection;
 import com.celeste.internal.protocol.utils.ProtocolBuffer;
+import com.celeste.internal.registry.Protocol;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.SneakyThrows;
@@ -40,6 +41,8 @@ public abstract class AbstractPacket<M extends PacketContent> {
 
     this.inboundId = packet.inboundId();
     this.outboundId = packet.outboundId();
+
+    // TODO: Get by enum instead of Reflection
 
     // Gets the M class by Reflection as Java doesn't allows it
     final ParameterizedType parameterizedType = (ParameterizedType) getClass().getGenericSuperclass();

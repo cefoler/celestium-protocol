@@ -25,11 +25,11 @@ public final class JoinMessage implements PacketContent {
 
   public JoinMessage() {
     this.entityId = (int) (LAST_ENTITY_ID + 1);
-    this.hardcore = PROPERTIES.isHardcore();
-    this.gamemode = PROPERTIES.getGamemode();
+    this.hardcore = PROPERTIES.hardcore();
+    this.gamemode = PROPERTIES.gamemode();
     this.world = SETTINGS.getDefaultWorld();
-    this.viewDistance = PROPERTIES.getViewDistance();
-    this.debug = PROPERTIES.isDebug();
+    this.viewDistance = PROPERTIES.viewDistance();
+    this.debug = PROPERTIES.debug();
     this.respawnScreen = false;
   }
 

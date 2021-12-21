@@ -27,7 +27,7 @@ public final class MessageDecoder extends ByteToMessageDecoder {
 
   protected void decode(final ChannelHandlerContext context, final ByteBuf bytebuf, final List<Object> list) {
     final ProtocolBuffer buffer = new ProtocolBuffer(bytebuf);
-    int packetId = buffer.readVarInt();
+    final int packetId = buffer.readVarInt();
 
     final AbstractPacket<?> packet = Protocol.getPacketInbound(controller.getState(), packetId);
     if (packet == null) {

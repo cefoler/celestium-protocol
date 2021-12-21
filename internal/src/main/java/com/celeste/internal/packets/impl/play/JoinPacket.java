@@ -13,9 +13,9 @@ public final class JoinPacket extends AbstractPacket<JoinMessage> {
     buffer.writeInt(packet.getEntityId());
     buffer.getByteBuf().writeBoolean(packet.isHardcore());
     buffer.getByteBuf().writeByte(packet.getGamemode().getData());
-    buffer.writeInt(packet.getWorld().getDimension().getData());
-    buffer.writeVarLong(packet.getWorld().getSeed());
-    buffer.writeString(packet.getWorld().getName());
+    buffer.writeInt(packet.getWorld().dimension().getData());
+    buffer.writeVarLong(packet.getWorld().seed());
+    buffer.writeString(packet.getWorld().name());
     buffer.writeVarInt(packet.getViewDistance());
     buffer.getByteBuf().writeBoolean(packet.isDebug());
     buffer.getByteBuf().writeBoolean(packet.isRespawnScreen());
