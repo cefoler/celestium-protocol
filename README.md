@@ -1,4 +1,4 @@
-## celestium
+# Celestium
 
 Celestium is a protocol server where our focus is to create a **stable and performatic** server and **API** for minecraft developers.
 The code comparated with the **Mojang NMS** is more clean, structured and easier to learn.
