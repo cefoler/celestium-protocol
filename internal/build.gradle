@@ -6,24 +6,37 @@ repositories {
     maven { url 'https://libraries.minecraft.net/' }
 }
 
-def protobufVersion = '3.12.0'
+def protobufVersion = '3.19.1'
 
 dependencies {
     def grpcVersion = '1.43.2'
     def floggerVersion = '0.7.4'
 
+    /**
+     * Network dependencies
+     */
     implementation "io.grpc:grpc-netty-shaded:${grpcVersion}"
     implementation "io.grpc:grpc-protobuf:${grpcVersion}"
     implementation "io.grpc:grpc-stub:${grpcVersion}"
 
+    // Needed for GRPC
+    compileOnly 'org.apache.tomcat:annotations-api:6.0.53'
+
+    /**
+     * Logger dependencies
+     */
     implementation "com.google.flogger:flogger:${floggerVersion}"
     implementation "com.google.flogger:flogger-system-backend:${floggerVersion}"
 
-    compileOnly 'org.apache.tomcat:annotations-api:6.0.53'
-
-    implementation 'com.github.celesteoficial.java-library:core:3.3.5'
+    /**
+     * Other dependencies
+     */
+    implementation 'com.github.cefoler.java-library:core:3.3.5'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.1'
 
+    /**
+     * Game dependencies
+     */
     implementation 'com.mojang:authlib:1.5.25'
 }
 
@@ -45,7 +58,13 @@ protobuf {
 
     plugins {
         grpc {
-            artifact = 'io.grpc:protoc-gen-grpc-java:1.43.0'
+            artifact = 'io.grpc:protoc-gen-grpc-java:1.43.1'
+        }
+    }
+
+    generateProtoTasks {
+        all()*.plugins {
+            grpc {}
         }
     }
 }

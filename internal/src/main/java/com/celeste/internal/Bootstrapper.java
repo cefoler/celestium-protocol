@@ -2,9 +2,10 @@ package com.celeste.internal;
 
 import com.celeste.internal.model.server.ServerAddress;
 import com.celeste.internal.protocol.ServerBootstrapper;
+import lombok.AccessLevel;
 import lombok.Getter;
 
-@Getter
+@Getter(AccessLevel.MODULE)
 public final class Bootstrapper {
 
   private final ServerBootstrapper server;

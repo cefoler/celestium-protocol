@@ -41,8 +41,6 @@ public abstract class AbstractPacket<M extends PacketMessage> implements Packet<
     this.inboundId = packet.inboundId();
     this.outboundId = packet.outboundId();
 
-    // TODO: Get by enum instead of Reflection
-
     // Gets the M class by Reflection as Java doesn't allows it
     final ParameterizedType parameterizedType = (ParameterizedType) getClass().getGenericSuperclass();
     this.messageClass = (Class<M>) Class.forName(parameterizedType.getActualTypeArguments()[0].toString());

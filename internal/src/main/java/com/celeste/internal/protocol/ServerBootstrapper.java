@@ -92,6 +92,9 @@ public final class ServerBootstrapper {
       workerGroup.shutdownGracefully();
 
       this.started = false;
+
+      EXECUTOR.shutdown();
+      SCHEDULED.shutdown();
     }
 
   }

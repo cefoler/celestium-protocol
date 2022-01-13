@@ -1,6 +1,7 @@
 package com.celeste.internal.packets.messages;
 
 import com.celeste.internal.annotation.Message;
+import com.celeste.internal.exception.protocol.impl.InvalidPacketException;
 
 /**
  * The PacketContent is a interface
@@ -11,10 +12,9 @@ import com.celeste.internal.annotation.Message;
 public interface PacketMessage {
 
   default int getId() {
-    // TODO: arrumar isso no futuro PELO AMOR DE DEUS!
     final Message message = getClass().getAnnotation(Message.class);
     if (message == null) {
-      return 999999;
+      throw new InvalidPacketException("The message class '" + getClass().getSimpleName() + "' doesn't have a @Message on it.");
     }
 
     return message.id();

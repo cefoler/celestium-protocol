@@ -4,6 +4,9 @@ allprojects {
     group 'com.celeste'
     version '0.0.1-SNAPSHOT'
 
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+
     repositories {
         mavenCentral()
         maven { url 'https://jitpack.io' }
@@ -17,6 +20,11 @@ allprojects {
 
         compileOnly lombok, annotations
         annotationProcessor lombok, annotations
+
+        def junitVersion = "5.8.2"
+
+        testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
+        testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
     }
 
     jar {
