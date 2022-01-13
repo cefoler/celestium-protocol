@@ -1,19 +1,19 @@
 package com.celeste.internal.registry.type;
 
-import com.celeste.internal.packets.AbstractPacket;
-import com.celeste.internal.packets.PacketContent;
-import com.celeste.internal.packets.impl.play.player.HeldSlotChangePacket;
-import com.celeste.internal.packets.impl.play.player.PlayerAbilitiesPacket;
-import com.celeste.internal.packets.impl.play.world.DifficultyPacket;
+import com.celeste.internal.packets.Packet;
+import com.celeste.internal.packets.messages.PacketMessage;
 import com.celeste.internal.packets.impl.play.JoinPacket;
 import com.celeste.internal.packets.impl.play.KeepAlivePacket;
+import com.celeste.internal.packets.impl.play.player.HeldSlotChangePacket;
+import com.celeste.internal.packets.impl.play.player.PlayerAbilitiesPacket;
 import com.celeste.internal.packets.impl.play.player.PlayerPositionPacket;
-import com.celeste.internal.packets.messages.play.player.HeldSlotChangeMessage;
-import com.celeste.internal.packets.messages.play.player.PlayerAbilitiesMessage;
-import com.celeste.internal.packets.messages.play.world.DifficultyMessage;
+import com.celeste.internal.packets.impl.play.world.DifficultyPacket;
 import com.celeste.internal.packets.messages.play.JoinMessage;
 import com.celeste.internal.packets.messages.play.KeepAliveMessage;
+import com.celeste.internal.packets.messages.play.player.HeldSlotChangeMessage;
+import com.celeste.internal.packets.messages.play.player.PlayerAbilitiesMessage;
 import com.celeste.internal.packets.messages.play.player.PlayerPositionMessage;
+import com.celeste.internal.packets.messages.play.world.DifficultyMessage;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -32,10 +32,10 @@ public enum PlayPackets {
 
   private final Integer inboundId;
   private final Integer outboundId;
-  private final Class<? extends PacketContent> message;
-  private final AbstractPacket<? extends PacketContent> packet;
+  private final Class<? extends PacketMessage> message;
+  private final Packet<? extends PacketMessage> packet;
 
-  public static PlayPackets getByMessage(Class<? extends PacketContent> message) {
+  public static PlayPackets getByMessage(Class<? extends PacketMessage> message) {
     return Arrays.stream(values())
         .filter(packets -> packets.getMessage() == message)
         .findFirst()

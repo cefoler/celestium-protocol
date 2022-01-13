@@ -3,9 +3,10 @@ package com.celeste.internal.protocol.utils;
 import com.celeste.internal.exception.protocol.BufferException;
 import com.google.common.base.Charsets;
 import io.grpc.netty.shaded.io.netty.buffer.ByteBuf;
-import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+
+import java.util.UUID;
 
 @Getter
 @AllArgsConstructor
@@ -15,6 +16,7 @@ public final class ProtocolBuffer {
 
   /**
    * Reads a VarInt through the ByteBuf
+   *
    * @return Integer
    */
   public int readVarInt() {
@@ -39,6 +41,7 @@ public final class ProtocolBuffer {
 
   /**
    * Reads a VarLong through the ByteBuf
+   *
    * @return Long
    */
   public long readVarLong() {
@@ -63,6 +66,7 @@ public final class ProtocolBuffer {
   /**
    * Transforms the Integer value into a VarInt
    * and writes in the ByteBuf
+   *
    * @param value Integer
    */
   public void writeVarInt(int value) {
@@ -77,6 +81,7 @@ public final class ProtocolBuffer {
   /**
    * Transforms the Long value into a VarInt
    * and writes in the ByteBuf
+   *
    * @param value Long
    */
   public void writeVarLong(long value) {
@@ -90,6 +95,7 @@ public final class ProtocolBuffer {
 
   /**
    * Write the int value into the byteBuf
+   *
    * @param value Integer
    */
   public void writeInt(int value) {
@@ -121,7 +127,7 @@ public final class ProtocolBuffer {
 
       next = byteBuf.readByte();
       totalBytes++;
-    } while((next & 0x80) != 0);
+    } while ((next & 0x80) != 0);
 
     byteBuf.resetReaderIndex();
     return true;
@@ -129,6 +135,7 @@ public final class ProtocolBuffer {
 
   /**
    * Get a UUID through the ByteBuf
+   *
    * @return UUID
    */
   public UUID getUUID() {
@@ -138,6 +145,7 @@ public final class ProtocolBuffer {
   /**
    * Transforms a UUID into byte and
    * writes it in the ByteBuf
+   *
    * @param id UUID
    */
   public void writeUUID(final UUID id) {
@@ -147,8 +155,8 @@ public final class ProtocolBuffer {
 
   /**
    * Reads a String from the ByteBuf
-   * @param input int
    *
+   * @param input int
    * @return String
    */
   public String readString(int input) {
@@ -170,6 +178,7 @@ public final class ProtocolBuffer {
 
   /**
    * Reads a String from the ByteBuf
+   *
    * @return String
    */
   public String readString() {
@@ -184,6 +193,7 @@ public final class ProtocolBuffer {
   /**
    * Writes a String into the ByteBuf in the
    * UTF-8 Charset
+   *
    * @param string String
    */
   public void writeString(final String string) {
@@ -199,6 +209,7 @@ public final class ProtocolBuffer {
   /**
    * Writes a String into the ByteBuf in the
    * UTF-8 Charset
+   *
    * @param string String
    */
   public void writeString(final String string, int input) {

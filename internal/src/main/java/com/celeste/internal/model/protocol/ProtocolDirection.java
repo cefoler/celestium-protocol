@@ -9,13 +9,13 @@ import lombok.Getter;
 @Getter
 public enum ProtocolDirection {
 
-    /**
-     * Indicated that the packet is sent by the server
-     */
-    SERVER,
-    /**
-     * Indicated that the packet is sent by the player client
-     */
-    CLIENT
+  /**
+   * Indicated that the packet is sent by the server
+   */
+  SERVER,
+  /**
+   * Indicated that the packet is sent by the player client
+   */
+  CLIENT
 
 }

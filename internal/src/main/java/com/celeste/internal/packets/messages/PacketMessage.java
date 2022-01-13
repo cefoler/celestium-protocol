@@ -1,4 +1,4 @@
-package com.celeste.internal.packets;
+package com.celeste.internal.packets.messages;
 
 import com.celeste.internal.annotation.Message;
 
@@ -8,7 +8,7 @@ import com.celeste.internal.annotation.Message;
  *
  * <p>It doesn't provide any informations besides the ID of the packet.</p>
  */
-public interface PacketContent {
+public interface PacketMessage {
 
   default int getId() {
     // TODO: arrumar isso no futuro PELO AMOR DE DEUS!

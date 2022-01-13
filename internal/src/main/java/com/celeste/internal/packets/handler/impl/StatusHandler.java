@@ -1,11 +1,11 @@
-package com.celeste.internal.packets.handler;
+package com.celeste.internal.packets.handler.impl;
 
 import com.celeste.internal.controller.ChannelController;
 import com.celeste.internal.controller.ServerController;
-import com.celeste.internal.model.server.ServerSettings;
 import com.celeste.internal.model.protocol.state.StatusState;
-import com.celeste.internal.packets.PacketContent;
-import com.celeste.internal.packets.PacketHandler;
+import com.celeste.internal.model.server.ServerSettings;
+import com.celeste.internal.packets.messages.PacketMessage;
+import com.celeste.internal.packets.handler.AbstractPacketHandler;
 import com.celeste.internal.packets.messages.status.StatusResponseMessage;
 import com.celeste.library.core.util.Logger;
 import io.grpc.netty.shaded.io.netty.channel.ChannelHandlerContext;
@@ -14,18 +14,17 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public final class StatusHandler extends PacketHandler {
+public final class StatusHandler extends AbstractPacketHandler {
 
+  private StatusState statusState;
+  private long ping;
   public StatusHandler(final ChannelController controller) {
     super(controller);
     this.statusState = StatusState.REQUEST;
   }
 
-  private StatusState statusState;
-  private long ping;
-
   @Override
-  public void read(final ChannelHandlerContext context, final PacketContent message) {
+  public void read(final ChannelHandlerContext context, final PacketMessage message) {
     switch (statusState) {
       case REQUEST -> {
         System.out.println("STATUS REQUEST");

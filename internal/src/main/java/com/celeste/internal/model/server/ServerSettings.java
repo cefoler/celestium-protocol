@@ -1,8 +1,8 @@
 package com.celeste.internal.model.server;
 
+import com.celeste.game.model.world.World;
 import com.celeste.internal.model.protocol.ProtocolVersion;
 import com.celeste.internal.packets.entity.PlayerSimpleEntity;
-import com.celeste.game.model.world.World;
 
 import java.io.Serializable;
 import java.util.ArrayList;

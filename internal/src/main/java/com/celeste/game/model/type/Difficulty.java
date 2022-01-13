@@ -1,10 +1,10 @@
 package com.celeste.game.model.type;
 
-import java.util.Arrays;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Arrays;
 
 /**
  * Represents the difficulty of the Minecraft server, each one has a ID.

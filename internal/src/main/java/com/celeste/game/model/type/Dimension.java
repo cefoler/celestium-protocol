@@ -1,10 +1,10 @@
 package com.celeste.game.model.type;
 
-import java.util.Arrays;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Arrays;
 
 /**
  * Represents all Minecraft default dimensions, all have a ID.

@@ -1,11 +1,11 @@
 package com.celeste.internal.packets.impl.login;
 
-import com.celeste.internal.annotation.Packet;
+import com.celeste.internal.annotation.PacketInfo;
 import com.celeste.internal.packets.AbstractPacket;
 import com.celeste.internal.packets.messages.login.LoginSuccessMessage;
 import com.celeste.internal.protocol.utils.ProtocolBuffer;
 
-@Packet(outboundId = 0x02)
+@PacketInfo(outboundId = 0x02)
 public final class LoginSuccessPacket extends AbstractPacket<LoginSuccessMessage> {
 
   @Override

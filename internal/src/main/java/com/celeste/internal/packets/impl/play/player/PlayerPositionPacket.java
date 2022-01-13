@@ -1,11 +1,11 @@
 package com.celeste.internal.packets.impl.play.player;
 
-import com.celeste.internal.annotation.Packet;
+import com.celeste.internal.annotation.PacketInfo;
 import com.celeste.internal.packets.AbstractPacket;
 import com.celeste.internal.packets.messages.play.player.PlayerPositionMessage;
 import com.celeste.internal.protocol.utils.ProtocolBuffer;
 
-@Packet(outboundId = 0x38)
+@PacketInfo(outboundId = 0x38)
 public final class PlayerPositionPacket extends AbstractPacket<PlayerPositionMessage> {
 
   @Override

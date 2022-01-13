@@ -1,11 +1,11 @@
 package com.celeste.internal.packets.impl.play;
 
-import com.celeste.internal.annotation.Packet;
+import com.celeste.internal.annotation.PacketInfo;
 import com.celeste.internal.packets.AbstractPacket;
 import com.celeste.internal.packets.messages.play.JoinMessage;
 import com.celeste.internal.protocol.utils.ProtocolBuffer;
 
-@Packet(outboundId = 0x26)
+@PacketInfo(outboundId = 0x26)
 public final class JoinPacket extends AbstractPacket<JoinMessage> {
 
   @Override

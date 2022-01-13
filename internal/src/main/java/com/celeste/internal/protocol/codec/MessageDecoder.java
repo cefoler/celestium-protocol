@@ -2,7 +2,8 @@ package com.celeste.internal.protocol.codec;
 
 import com.celeste.internal.controller.ChannelController;
 import com.celeste.internal.packets.AbstractPacket;
-import com.celeste.internal.packets.PacketContent;
+import com.celeste.internal.packets.Packet;
+import com.celeste.internal.packets.messages.PacketMessage;
 import com.celeste.internal.protocol.utils.PacketFormatter;
 import com.celeste.internal.protocol.utils.ProtocolBuffer;
 import com.celeste.internal.registry.Protocol;
@@ -10,8 +11,9 @@ import com.celeste.library.core.util.Logger;
 import io.grpc.netty.shaded.io.netty.buffer.ByteBuf;
 import io.grpc.netty.shaded.io.netty.channel.ChannelHandlerContext;
 import io.grpc.netty.shaded.io.netty.handler.codec.ByteToMessageDecoder;
-import java.util.List;
 import lombok.AllArgsConstructor;
+
+import java.util.List;
 
 /**
  * <p>Packet decoder for the main Netty pipeline on the bootstrap.
@@ -29,13 +31,13 @@ public final class MessageDecoder extends ByteToMessageDecoder {
     final ProtocolBuffer buffer = new ProtocolBuffer(bytebuf);
     final int packetId = buffer.readVarInt();
 
-    final AbstractPacket<?> packet = Protocol.getPacketInbound(controller.getState(), packetId);
+    final Packet<?> packet = Protocol.getPacketInbound(controller.getState(), packetId);
     if (packet == null) {
       Logger.getLogger().atSevere().log("A packet with unidentified id has been received: " + PacketFormatter.format(packetId));
       return;
     }
 
-    final PacketContent content = packet.read(buffer);
+    final PacketMessage content = packet.read(buffer);
     list.add(content);
 
     Logger.getLogger().atInfo().log("Received packet with ID: " + PacketFormatter.format(packetId));

@@ -1,12 +1,12 @@
 package com.celeste.internal.packets.impl.play.player;
 
-import com.celeste.internal.annotation.Packet;
+import com.celeste.internal.annotation.PacketInfo;
 import com.celeste.internal.model.client.type.Flags;
 import com.celeste.internal.packets.AbstractPacket;
 import com.celeste.internal.packets.messages.play.player.PlayerAbilitiesMessage;
 import com.celeste.internal.protocol.utils.ProtocolBuffer;
 
-@Packet(inboundId = 0x32, outboundId = 0x32)
+@PacketInfo(inboundId = 0x32, outboundId = 0x32)
 public final class PlayerAbilitiesPacket extends AbstractPacket<PlayerAbilitiesMessage> {
 
   @Override

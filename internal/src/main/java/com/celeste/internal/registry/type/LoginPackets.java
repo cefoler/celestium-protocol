@@ -1,13 +1,11 @@
 package com.celeste.internal.registry.type;
 
-import com.celeste.internal.packets.AbstractPacket;
-import com.celeste.internal.packets.PacketContent;
-import com.celeste.internal.packets.impl.handshake.StatusResponsePacket;
+import com.celeste.internal.packets.Packet;
+import com.celeste.internal.packets.messages.PacketMessage;
 import com.celeste.internal.packets.impl.login.LoginStartPacket;
 import com.celeste.internal.packets.impl.login.LoginSuccessPacket;
 import com.celeste.internal.packets.messages.login.LoginStartMessage;
 import com.celeste.internal.packets.messages.login.LoginSuccessMessage;
-import com.celeste.internal.packets.messages.status.StatusResponseMessage;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -22,10 +20,10 @@ public enum LoginPackets {
 
   private final Integer inboundId;
   private final Integer outboundId;
-  private final Class<? extends PacketContent> message;
-  private final AbstractPacket<? extends PacketContent> packet;
+  private final Class<? extends PacketMessage> message;
+  private final Packet<? extends PacketMessage> packet;
 
-  public static LoginPackets getByMessage(Class<? extends PacketContent> message) {
+  public static LoginPackets getByMessage(Class<? extends PacketMessage> message) {
     return Arrays.stream(values())
         .filter(loginPackets -> loginPackets.getMessage() == message)
         .findFirst()

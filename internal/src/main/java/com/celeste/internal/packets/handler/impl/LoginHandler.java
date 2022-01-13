@@ -1,48 +1,47 @@
-package com.celeste.internal.packets.handler;
+package com.celeste.internal.packets.handler.impl;
 
+import com.celeste.game.model.Location;
+import com.celeste.game.model.type.Gamemode;
 import com.celeste.internal.controller.ChannelController;
 import com.celeste.internal.exception.protocol.PacketException;
 import com.celeste.internal.model.player.impl.PlayerConnection;
 import com.celeste.internal.model.protocol.ConnectionState;
 import com.celeste.internal.model.protocol.state.LoginState;
-import com.celeste.internal.packets.PacketContent;
-import com.celeste.internal.packets.PacketHandler;
-import com.celeste.internal.packets.handler.play.KeepAliveHandler;
-import com.celeste.internal.packets.handler.play.PlayHandler;
+import com.celeste.internal.packets.messages.PacketMessage;
+import com.celeste.internal.packets.handler.AbstractPacketHandler;
+import com.celeste.internal.packets.handler.impl.play.KeepAliveHandler;
+import com.celeste.internal.packets.handler.impl.play.PlayHandler;
 import com.celeste.internal.packets.messages.login.LoginStartMessage;
 import com.celeste.internal.packets.messages.login.LoginSuccessMessage;
 import com.celeste.internal.packets.messages.play.JoinMessage;
 import com.celeste.internal.packets.messages.play.player.PlayerAbilitiesMessage;
 import com.celeste.internal.packets.messages.play.world.DifficultyMessage;
-import com.celeste.internal.registry.ConnectionRegistry;
-import com.celeste.internal.registry.KeepAliveRegistry;
+import com.celeste.internal.registry.Registries;
 import com.celeste.library.core.util.Logger;
-import com.celeste.game.model.Location;
-import com.celeste.game.model.type.Gamemode;
 import com.mojang.authlib.GameProfile;
 import io.grpc.netty.shaded.io.netty.channel.ChannelHandlerContext;
-import java.net.InetSocketAddress;
-import java.nio.charset.StandardCharsets;
-import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.net.InetSocketAddress;
+import java.nio.charset.StandardCharsets;
+import java.util.UUID;
+
 @Getter
 @Setter
-public final class LoginHandler extends PacketHandler {
+public final class LoginHandler extends AbstractPacketHandler {
+
+  private LoginState loginState;
+  private UUID id;
+  private String username;
 
   public LoginHandler(final ChannelController controller) {
     super(controller);
     this.loginState = LoginState.START;
   }
 
-  private LoginState loginState;
-
-  private UUID id;
-  private String username;
-
   @Override
-  public void read(final ChannelHandlerContext context, final PacketContent message) {
+  public void read(final ChannelHandlerContext context, final PacketMessage message) {
     switch (loginState) {
       case START -> {
         System.out.println("LOGIN START");
@@ -82,12 +81,12 @@ public final class LoginHandler extends PacketHandler {
             .protocolVersion(getController().getProtocolVersion())
             .build();
 
-        ConnectionRegistry.INSTANCE.register(id, playerConnection);
+        Registries.CONNECTION.register(id, playerConnection);
 
         getController().setState(ConnectionState.PLAY);
         getController().setHandler(new PlayHandler(getController()));
 
-        KeepAliveRegistry.INSTANCE.register(id, new KeepAliveHandler(getController()));
+        Registries.KEEP_ALIVE.register(id, new KeepAliveHandler(getController()));
 
         dispatch(
             new LoginSuccessMessage(id, username),

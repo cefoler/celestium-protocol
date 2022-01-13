@@ -1,6 +1,6 @@
 package com.celeste.internal.packets.impl.handshake;
 
-import com.celeste.internal.annotation.Packet;
+import com.celeste.internal.annotation.PacketInfo;
 import com.celeste.internal.packets.AbstractPacket;
 import com.celeste.internal.packets.messages.status.StatusResponseMessage;
 import com.celeste.internal.protocol.utils.ProtocolBuffer;
@@ -8,10 +8,11 @@ import com.celeste.library.core.adapter.impl.jackson.JacksonAdapter;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import lombok.SneakyThrows;
 
-@Packet(outboundId = 0x00)
+@PacketInfo(outboundId = 0x00)
 public final class StatusResponsePacket extends AbstractPacket<StatusResponseMessage> {
 
-  @Override @SneakyThrows
+  @Override
+  @SneakyThrows
   public void write(final ProtocolBuffer buffer, final StatusResponseMessage packet) {
     final JacksonAdapter adapter = JacksonAdapter.getInstance();
     final ObjectNode main = adapter.createNode();

@@ -1,15 +1,13 @@
 package com.celeste.internal.packets;
 
-import com.celeste.internal.annotation.Packet;
+import com.celeste.internal.annotation.PacketInfo;
 import com.celeste.internal.model.protocol.ProtocolDirection;
+import com.celeste.internal.packets.messages.PacketMessage;
 import com.celeste.internal.protocol.utils.ProtocolBuffer;
-import com.celeste.internal.registry.Protocol;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.SneakyThrows;
 
 import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 
 /**
  * <p>The packet is the major information
@@ -25,16 +23,17 @@ import java.lang.reflect.Type;
  * client, it's Outbound</p>
  */
 @Data
-public abstract class AbstractPacket<M extends PacketContent> {
+public abstract class AbstractPacket<M extends PacketMessage> implements Packet<M> {
 
   private Integer inboundId;
   private Integer outboundId;
 
   private Class<M> messageClass;
 
-  @SneakyThrows @SuppressWarnings("unchecked")
+  @SneakyThrows
+  @SuppressWarnings("unchecked")
   public AbstractPacket() {
-    final Packet packet = getClass().getAnnotation(Packet.class);
+    final PacketInfo packet = getClass().getAnnotation(PacketInfo.class);
     if (packet == null) {
       return;
     }
@@ -79,7 +78,8 @@ public abstract class AbstractPacket<M extends PacketContent> {
    * @param buffer ProtocolBuffer
    */
   // Currently not using as a abstract method because it's cleaner on the packet class
-  public void write(final ProtocolBuffer buffer, M packet) {}
+  public void write(final ProtocolBuffer buffer, M packet) {
+  }
 
   public Class<M> getMessage() {
     return messageClass;

@@ -9,8 +9,8 @@ repositories {
 def protobufVersion = '3.12.0'
 
 dependencies {
-    def grpcVersion = '1.43.0'
-    def floggerVersion = '0.7.3'
+    def grpcVersion = '1.43.2'
+    def floggerVersion = '0.7.4'
 
     implementation "io.grpc:grpc-netty-shaded:${grpcVersion}"
     implementation "io.grpc:grpc-protobuf:${grpcVersion}"
@@ -22,7 +22,7 @@ dependencies {
     compileOnly 'org.apache.tomcat:annotations-api:6.0.53'
 
     implementation 'com.github.celesteoficial.java-library:core:3.3.5'
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.0'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.1'
 
     implementation 'com.mojang:authlib:1.5.25'
 }

@@ -1,10 +1,10 @@
 package com.celeste.internal.model.protocol.state;
 
-import java.util.Arrays;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Arrays;
 
 /**
  * Field received only on Handshake packet, should return STATUS or LOGIN.
