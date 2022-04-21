@@ -3,7 +3,7 @@ package com.celeste.internal.controller;
 import com.celeste.internal.model.server.ServerProperties;
 import com.celeste.internal.model.server.ServerSettings;
 
-public final record ServerController() {
+public record ServerController() {
 
   public static final ServerSettings SETTINGS;
   public static final ServerProperties PROPERTIES;

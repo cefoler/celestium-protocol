@@ -44,8 +44,6 @@ public abstract class AbstractPacket<M extends PacketMessage> implements Packet<
     // Gets the M class by Reflection as Java doesn't allows it
     final ParameterizedType parameterizedType = (ParameterizedType) getClass().getGenericSuperclass();
     this.messageClass = (Class<M>) Class.forName(parameterizedType.getActualTypeArguments()[0].toString());
-
-    System.out.println("RECEIVED PACKET WITH ID: " + inboundId);
   }
 
   /**
@@ -60,7 +58,6 @@ public abstract class AbstractPacket<M extends PacketMessage> implements Packet<
    *
    * @param buffer ProtocolBuffer
    */
-  // Currently not using as a abstract method because it's cleaner on the packet class
   public M read(final ProtocolBuffer buffer) {
     return null;
   }
@@ -75,12 +72,6 @@ public abstract class AbstractPacket<M extends PacketMessage> implements Packet<
    *
    * @param buffer ProtocolBuffer
    */
-  // Currently not using as a abstract method because it's cleaner on the packet class
-  public void write(final ProtocolBuffer buffer, M packet) {
-  }
-
-  public Class<M> getMessage() {
-    return messageClass;
-  }
+  public void write(final ProtocolBuffer buffer, M packet) {}
 
 }

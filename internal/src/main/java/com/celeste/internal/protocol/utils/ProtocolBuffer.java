@@ -31,6 +31,7 @@ public final class ProtocolBuffer {
       }
 
       next = byteBuf.readByte();
+      // Check if next exceeds the byte size (128)
       result |= (next & 0x7F) << (totalBytes * 7);
 
       totalBytes++;
