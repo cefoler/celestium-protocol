@@ -45,7 +45,8 @@ public final class MessageReader extends ByteToMessageDecoder {
 
     final byte[] data = Compression.decompress(byteBuf.array());
     final int length = buffer.readVarInt(data);
-    // TODO: Handle decompression and flush with decompressed information for the Decoder
+
+    list.add(byteBuf.readBytes(length));
   }
 
   @Override

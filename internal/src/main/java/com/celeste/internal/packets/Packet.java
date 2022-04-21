@@ -11,6 +11,6 @@ public interface Packet<M extends PacketMessage> {
 
   M read(final ProtocolBuffer buffer);
 
-  void write(final ProtocolBuffer buffer, M packet);
+  <T extends PacketMessage> void write(final ProtocolBuffer buffer, T packet);
 
 }

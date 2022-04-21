@@ -17,25 +17,15 @@ public final class MessageEncoder extends MessageToByteEncoder<PacketMessage> {
   private final ChannelController controller;
 
   @Override
-  @SuppressWarnings("unchecked")
   protected void encode(final ChannelHandlerContext channelHandlerContext, final PacketMessage packetMessage, final ByteBuf byteBuf) {
-    if (packetMessage == null) {
-      Logger.getLogger().atSevere().log("A null packet has been tried to sent.");
-      return;
-    }
-
-    if (packetMessage.getId() == 940682680) {
+    if (packetMessage == null || packetMessage.getId() == 999999) {
       Logger.getLogger().atSevere().log("A invalid packet has been tried to sent.");
       return;
     }
 
-    final Packet packet = Protocol.getPacketOutbound(controller.getState(), packetMessage.getId());
+    final Packet<? extends PacketMessage> packet = Protocol.getPacketOutbound(controller.getState(), packetMessage.getId());
     if (packet == null) {
       Logger.getLogger().atSevere().log("A packet with unidentified id has been tried to sent. Name: " + packetMessage.getClass().getSimpleName());
-      return;
-    }
-
-    if (packet.getOutboundId() == 999999) {
       return;
     }
 

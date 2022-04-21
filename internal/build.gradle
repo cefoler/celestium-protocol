@@ -6,11 +6,11 @@ repositories {
     maven { url 'https://libraries.minecraft.net/' }
 }
 
-def protobufVersion = '3.19.1'
+def protobufVersion = "3.19.1"
 
 dependencies {
-    def grpcVersion = '1.43.2'
-    def floggerVersion = '0.7.4'
+    def grpcVersion = "1.45.1"
+    def floggerVersion = "0.7.4"
 
     /**
      * Network dependencies
@@ -29,15 +29,12 @@ dependencies {
     implementation "com.google.flogger:flogger-system-backend:${floggerVersion}"
 
     /**
-     * Other dependencies
-     */
-    implementation 'com.github.cefoler.java-library:core:3.3.5'
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.1'
-
-    /**
      * Game dependencies
      */
     implementation 'com.mojang:authlib:1.5.25'
+
+    implementation "com.github.cefoler.java-library:core:3.3.5"
+    implementation "com.fasterxml.jackson.core:jackson-databind:2.13.2"
 }
 
 sourceSets {
